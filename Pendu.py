@@ -131,3 +131,29 @@ class Pendu:
         return "Z"
 
 
+"""
+
+DEBUT PROGRAMME PRINCIPAL
+
+"""
+
+# INTEGRER :
+
+# Ouverture de la fenêtre TkInter ou pygame ou panda?
+
+# affichage nom du jeu règles bouton
+
+#action bouton jouer => envoie page 2
+
+# conditions en fonction du parcourt utilisateur
+# ==> choix theme passage du theme choisi pour la page 3
+
+#déroulement du jeu s'aider du diagramme de Phuong
+
+
+
+# Passage de du theme choisit et du résultat de la partie (gagnée / perdu) à la page 4
+
+
+
+
