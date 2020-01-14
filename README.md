@@ -1,5 +1,5 @@
 # Formation python
-    Recueil de plusieurs petits projets en lien avec le langage python.
+    Escpace de travail pour le projet du pendu : groupe 3.
 
 ## Organisation du dossier
      Le fichier contient la class Pendu et le programme principal écrit en procédural.
