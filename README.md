@@ -1,4 +1,5 @@
 # Formation python
+
 Escpace de travail pour le projet du pendu : groupe 3.
 
 ## Fonctionnement commit et push
@@ -24,6 +25,3 @@ En cas de conflit il faut vérifier que le code rajouté à bien été pris en c
    ### branch à votre nom
 Sur cette branch vous metterez à jour vos avancées dans la programmation, essayer de push du code popre, commenté et fonctionnel.
 Git add . et son commit sont différent de la sauvegarde sur l'ordinateur, pas besoin de commit à chaque sauvegarde en local.
-
-
-
