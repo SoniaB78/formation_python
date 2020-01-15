@@ -14,14 +14,14 @@ class Pendu:
         self.theme = theme
         self.mot = mot
 
-    def generationAlphabet():
+    def generationAlphabet(self):
         """Boucle qui génère une liste contenant l'alphabet"""
         alphabet = []
         for i in range(65,65+26):
             alphabet.append(chr(i))
         return alphabet
 
-    def selection_mot():
+    def selection_mot(self):
         """Tirage d’un mot aléatoire lu dans un csv
     	Retourne le mot et le lien de l’image
         """
@@ -33,7 +33,7 @@ class Pendu:
         lien = lien.replace("\n","")
         return str(nom), lien
 
-    def creation_fenetre():
+    def creation_fenetre(self):
         """Initialisation d’une fenêtre à taille rentrée en dur et non redimensionnable"""
         fenetre = Tk()
         fenetre.title("PENDU")
@@ -41,7 +41,7 @@ class Pendu:
         fenetre.resizable(width=False, height=False)
         return fenetre
 
-    def lettrePresente(mot,lettre):
+    def lettrePresente(self,mot,lettre):
         """Retourne vrai si la lettre est présente
         Entrée : Mot + la lettre rentrée
         Retourne Vrai ou Faux
@@ -51,7 +51,7 @@ class Pendu:
         else:
             return False
 
-    def affichageMot(mot,lettre):
+    def affichageMot(self,mot,lettre):
         """Affichage du mot
     	/!\ : from random import randint
     	Entrée : le mot à trouver et les lettres tapées
@@ -152,7 +152,7 @@ DEBUT PROGRAMME PRINCIPAL
 
 
 
-# Passage de du theme choisit et du résultat de la partie (gagnée / perdu) à la page 4
+# Passage du mot aléatoirement choisit et du résultat de la partie (gagnée / perdu) à la page 4
 
 
 
