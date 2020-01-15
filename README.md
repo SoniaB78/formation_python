@@ -3,7 +3,7 @@
 *Espace de travail pour le projet du pendu : groupe 3.*
 
 ## Fonctionnement commit et push
-* **Il ne faut pas confondre ou assimiler le commit et le push!** On doit commit pour push mais chaque commit n'implique pas un push.*
+**Il ne faut pas confondre ou assimiler le commit et le push!** On doit commit pour push mais chaque commit n'implique pas un push.
 ### Commit 
 Avant de Commit tu dois entrer __git add .__ , cette commande récupèrera les changements depuis le dernier commit et seront utilisés pour le commit qui suit.
 __git commit -m "tonblabla"__ sert à sauvegarder tes changements pour ton *versionning*, ainsi en plus d'avoir une sauvegarde dans ton explorateur de fichier (ne gardant que la dernière version),
