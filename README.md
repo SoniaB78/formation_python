@@ -1,6 +1,14 @@
 # Formation python
 Escpace de travail pour le projet du pendu : groupe 3.
 
+## Fonctionnement commit et push
+### Commit 
+Donc maintenant tu commit tes changements pour ton versionning
+
+### Push
+Push sur ta branch quand tu as ajouté une fonctionnalité qui marche, afin qu'on puisse récupérer le travaille fait et voir si c'est compatible.
+Ce n'est que sur la fin du projet ou que quelqu'un à finit de travailler sur le projet qu'il fera un merge / push su l'origin master.
+
 ## Organisation du dossier
 Le fichier contient la class Pendu et le programme principal écrit en procédural.
  
