@@ -1,59 +1,71 @@
-#-------------------------------------------------------------------------------
-# Name:        module1
-# Purpose:
-#
-# Author:      python
-#
-# Created:     15/01/2020
-# Copyright:   (c) python 2020
-# Licence:     <your licence>
-#-------------------------------------------------------------------------------
-from tkinter import Tk
+from random import randint
+
 class Pendu:
-    def __init__(self,lettre):
-        self.lettre = lettre
-        self.lettreCliquee = False
 
-    def afficheLettre(self):
-        "Affiche la lettre tapée et la retourne"
-        print(self.lettre)
-        return self.lettre
-
-    def lettreTentee(self):
-        "Converti la lettre tentee en True"
-        print(self.lettre,self.lettreCliquee)
-        self.lettreCliquee = True
-        print(self.lettre,self.lettreCliquee)
-
-    def creationAlphabet():
-        "Génération 26 objets pour 26 lettres"
-        listeLettres = list()
-        for i in range(26):
-            caractere = chr(65+i)
-            lettre = Pendu(caractere)
-            listeLettres.append(lettre)
-        return listeLettres
-
-class Fenetre:
     def __init__(self):
-        "Initialisation des "
-        self.largeur = 800
-        self.hauteur = 600
-        self.title = "Pendu de Florent"
+        self.listeDeMots = ['MAISON','BATEAU','CHAMPIGNON']
+        self.nbDeCoupsRestants = 7
+        self.lettreTappees = []
+        self.motAAfficher = []
 
-    def creationFenetre(self):
-        self.fenetre = Tk()
-        self.fenetre.configure(width=self.largeur,height=self.hauteur)
-        self.fenetre.mainloop()
+    def selectionMot(self):
+        self.motATrouver = self.listeDeMots[randint(0,len(self.listeDeMots)-1)]
+        print(self.motATrouver)
+        return self.motATrouver
 
+    def lettreJoueePresente(self,lettreJouee):
 
-#   PROGRAMME PRINCIPAL
-listeLettres = Pendu.creationAlphabet()
+        self.lettreTappees.append(lettreJouee)
+        if lettreJouee in self.motATrouver:
+            print("Il reste",self.nbDeCoupsRestants,"coups")
+            print('-----------Lettre présente')
+            return True
+        else:
+            print("Il reste",self.nbDeCoupsRestants,"coups")
+            print('-----------Lettre absente')
+            self.nbDeCoupsRestants -= 1
+            return False
 
-fenetre = Fenetre()
-fenetre.creationFenetre()
+    def partiePerdue(self):
+        if self.nbDeCoupsRestants <= 0:
+            print("------------PERDU !!!")
+            return True
+        else:
+            print('------------Pas perdu')
+            return False
 
-for i in listeLettres:
-    print("------------------------------")
-    i.afficheLettre()
-    i.lettreTentee()
+    def partieGagnee(self):
+        if "-" in self.motAAfficher:
+            print('-------------Pas gagner')
+            return False
+        else:
+            print('-------------Gagner !')
+            return True
+
+    def afficheLettresTappees(self):
+        print("Lettre tapées :",self.lettreTappees)
+
+    def affichageMot(self):
+        self.motAAfficher = []
+        for lettreMot in self.motATrouver:
+            if lettreMot in self.lettreTappees:
+                self.motAAfficher.append(lettreMot)
+            else:
+                self.motAAfficher.append("-")
+
+        print("mot",self.motAAfficher)
+        return self.motAAfficher
+
+jeu = Pendu()
+
+jeu.selectionMot()
+
+while not jeu.partiePerdue() or not jeu.partieGagnee():
+
+    jeu.affichageMot()
+    jeu.afficheLettresTappees()
+
+    lettreATester = input("Quelle lettre ?").upper()
+    jeu.lettreJoueePresente(lettreATester)
+    jeu.partieGagnee()
+    jeu.partiePerdue()

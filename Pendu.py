@@ -186,7 +186,7 @@ Button(fenetre, text="V", borderwidth=1,height=2, width=2,command=lettreTappeeV)
 Button(fenetre, text="W", borderwidth=1,height=2, width=2,command=lettreTappeeW).grid(row=1, column=9)
 Button(fenetre, text="X", borderwidth=1,height=2, width=2,command=lettreTappeeX).grid(row=1, column=10)
 Button(fenetre, text="Y", borderwidth=1,height=2, width=2,command=lettreTappeeY).grid(row=1, column=11)
-Button(fenetre, text="Z", borderwidth=1,height=2, width=2,command=lettreTappeeZ).grid(row=1, column=12)
+Button("e")
 
 fenetre.mainloop()
 # INTEGRER :
