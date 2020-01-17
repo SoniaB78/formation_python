@@ -17,33 +17,30 @@ class Pendu:
 
         self.lettreTappees.append(lettreJouee)
         if lettreJouee in self.motATrouver:
-            print("Il reste",self.nbDeCoupsRestants,"coups")
-            print('-----------Lettre présente')
+            #print("Il reste",self.nbDeCoupsRestants,"coups")
+            #print('-----------Lettre présente')
             return True
         else:
-            print("Il reste",self.nbDeCoupsRestants,"coups")
-            print('-----------Lettre absente')
+            #print("Il reste",self.nbDeCoupsRestants,"coups")
+            #print('-----------Lettre absente')
             self.nbDeCoupsRestants -= 1
             return False
 
     def partiePerdue(self):
         if self.nbDeCoupsRestants <= 0:
-            print("------------PERDU !!!")
+            #print("------------PERDU !!!")
             return True
         else:
-            print('------------Pas perdu')
+            #print('------------Pas perdu')
             return False
 
     def partieGagnee(self):
         if "-" in self.motAAfficher:
-            print('-------------Pas gagner')
+            #print('-------------Pas gagner')
             return False
         else:
-            print('-------------Gagner !')
+            #print('-------------Gagner !')
             return True
-
-    def afficheLettresTappees(self):
-        print("Lettre tapées :",self.lettreTappees)
 
     def affichageMot(self):
         self.motAAfficher = []
@@ -53,19 +50,22 @@ class Pendu:
             else:
                 self.motAAfficher.append("-")
 
-        print("mot",self.motAAfficher)
         return self.motAAfficher
 
+    def affichageComplet(self):
+        print("Il reste",self.nbDeCoupsRestants,"coups")
+        print("Lettre jouées :",self.lettreTappees)
+        print(self.affichageMot())
+
+
+
 jeu = Pendu()
-
 jeu.selectionMot()
-
-while not jeu.partiePerdue() or not jeu.partieGagnee():
-
-    jeu.affichageMot()
-    jeu.afficheLettresTappees()
-
+jeu.affichageComplet()
+while not jeu.partiePerdue() and not jeu.partieGagnee():
+    print("--------------------------")
     lettreATester = input("Quelle lettre ?").upper()
     jeu.lettreJoueePresente(lettreATester)
-    jeu.partieGagnee()
-    jeu.partiePerdue()
+    jeu.affichageComplet()
+    if jeu.partiePerdue() : print("PERDU !!!!!!!!!")
+    if jeu.partieGagnee() : print("GAGNE !!!!!!!!!")
