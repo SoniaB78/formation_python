@@ -13,6 +13,7 @@ class Pendu():
         self.motAAfficher = []
 
     def creationListeDeMots(self,theme):
+        self.themeChoisi = theme.capitalize()
         "Création de la liste des mots en fonction du theme en attribut"
         self.affichageComplet
         self.listeDeMots = []
@@ -32,8 +33,8 @@ class Pendu():
 
 
                 mot = ligne_coupee[0]
-                #image = ligne_coupee[1]
-                #lien  = ligne_coupee[2]
+                #imageDeFin = ligne_coupee[1]
+                #lienURL  = ligne_coupee[2]
                 self.listeDeMots.append(mot)
 
 
@@ -78,7 +79,7 @@ class Pendu():
             if lettreMot in self.lettreTappees:
                 self.motAAfficher.append(lettreMot)
             elif lettreMot == " " or lettreMot == "-":
-                self.motAAfficher.append("  ")
+                self.motAAfficher.append("   ")
             else:
                 self.motAAfficher.append("-")
 
@@ -102,18 +103,38 @@ class Pendu():
 
 
 ##  Programme Principal
-
 pygame.init()
+
+
 police = pygame.font.SysFont("impact", 50)
+
+
+
+
+
 fenetre = pygame.display.set_mode((1080,720))
-
-
 jeu = Pendu()
+
+#Gestion des fonds des différentes fenetres
+fondTheme = pygame.image.load(".\\fond\\fondTheme.jpg")
+fondJeu = pygame.image.load(".\\fond\\fondJeu.jpg")
+
+
+
+
 
 
 
 
 continuerChoixTheme = True
+#   Fenetre choix du thème
+##  Position sur la fenêtre
+positionTexteChoix =    (380,20)
+positionTexteChiens =   (450,150)
+positionTexteFruits =   (460,250)
+positionTexteInstru =   (410,350)
+positionTextePays =     (470,450)
+
 
 while continuerChoixTheme:
     for event in pygame.event.get():
@@ -136,18 +157,35 @@ while continuerChoixTheme:
                 jeu.creationListeDeMots("pays")
                 continuerChoixTheme = False
 
+    texteChoix  = police.render("Choix du thème", 1, (255,0,255))
+    texteChiens = police.render("1:Chiens", 1, (255,0,0))
+    texteFruits = police.render("2:Fruits", 1, (255,0,0))
+    texteInstru = police.render("3:Instruments", 1, (255,0,0))
+    textePays   = police.render("4:Pays", 1, (255,0,0))
 
-    texte = police.render("1:Chiens  2:Fruits  3:Instruments  4:Pays", 1, (255,0,0))
 
-    fenetre.blit(texte, (100,300))
+    fenetre.blit(fondTheme,(0,0))
+
+    fenetre.blit(texteChoix , positionTexteChoix)
+    fenetre.blit(texteChiens, positionTexteChiens)
+    fenetre.blit(texteFruits, positionTexteFruits)
+    fenetre.blit(texteInstru, positionTexteInstru)
+    fenetre.blit(textePays  , positionTextePays)
+
     pygame.display.flip()
 
     sleep(0.2)
 
 
+#   Fenetre de fin && programme principal
+##  Position sur la fenêtre
+positionImagePendu =    (0, 50)
+positionThemeChoisi =   (720,120)
+positionLettresTappees =(500,360)
+positionAffichageMot =  (500,550)
+
 
 jeu.selectionMot()
-
 jeu.affichageComplet()
 lettreATester = list()
 #BOUCLE DE JEU
@@ -161,104 +199,83 @@ while continuerJeu :
         #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
         if event.type == KEYDOWN:
             carac= event.dict['unicode']
-            if carac == 'A' or carac == 'a':
-                jeu.lettreJoueePresente('A')
-            elif carac == 'B' or carac == 'b':
-                jeu.lettreJoueePresente('B')
-            elif carac == 'C' or carac == 'c':
-                jeu.lettreJoueePresente('C')
-            elif carac == 'D' or carac == 'd':
-                jeu.lettreJoueePresente('D')
-            elif carac == 'E' or carac == 'e':
-                jeu.lettreJoueePresente('E')
-            elif carac == 'F' or carac == 'f':
-                jeu.lettreJoueePresente('F')
-            elif carac == 'G' or carac == 'g':
-                jeu.lettreJoueePresente('G')
-            elif carac == 'H' or carac == 'h':
-                jeu.lettreJoueePresente('H')
-            elif carac == 'I' or carac == 'i':
-                jeu.lettreJoueePresente('I')
-            elif carac == 'J' or carac == 'j':
-                jeu.lettreJoueePresente('J')
-            elif carac == 'K' or carac == 'k':
-                jeu.lettreJoueePresente('K')
-            elif carac == 'L' or carac == 'l':
-                jeu.lettreJoueePresente('L')
-            elif carac == 'M' or carac == 'm':
-                jeu.lettreJoueePresente('M')
-            elif carac == 'N' or carac == 'n':
-                jeu.lettreJoueePresente('N')
-            elif carac == 'O' or carac == 'o':
-                jeu.lettreJoueePresente('O')
-            elif carac == 'P' or carac == 'p':
-                jeu.lettreJoueePresente('P')
-            elif carac == 'Q' or carac == 'q':
-                jeu.lettreJoueePresente('Q')
-            elif carac == 'R' or carac == 'r':
-                jeu.lettreJoueePresente('R')
-            elif carac == 'S' or carac == 's':
-                jeu.lettreJoueePresente('S')
-            elif carac == 'T' or carac == 't':
-                jeu.lettreJoueePresente('T')
-            elif carac == 'U' or carac == 'u':
-                jeu.lettreJoueePresente('U')
-            elif carac == 'V' or carac == 'v':
-                jeu.lettreJoueePresente('V')
-            elif carac == 'W' or carac == 'w':
-                jeu.lettreJoueePresente('W')
-            elif carac == 'X' or carac == 'x':
-                jeu.lettreJoueePresente('X')
-            elif carac == 'Y' or carac == 'y':
-                jeu.lettreJoueePresente('Y')
-            elif carac == 'Z' or carac == 'z':
-                jeu.lettreJoueePresente('Z')
+            carac = carac.upper()
+            jeu.lettreJoueePresente(carac)
+
 
             #   S'éxécute uniquement quand j'appuie sur une touche
 
             jeu.affichageComplet()
 
-    fenetre.fill(0x009900)
 
+    themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
     lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
-    mot = police.render(jeu.motAAfficher, 1, (255,0,0))
-    nbDeCoupsRestants = police.render(str(jeu.nbDeCoupsRestants), 1, (0,0,255))
+    mot = police.render(jeu.motAAfficher, 1, (66,255,66))
 
-    fenetre.blit(lettreTap, (100,150))
-    fenetre.blit(mot, (100,300))
+    fenetre.blit(fondJeu,(0,0))
 
-    fenetre.blit(nbDeCoupsRestants, (100,500))
+    fenetre.blit(themeChoisi,positionThemeChoisi)
+    fenetre.blit(lettreTap, positionLettresTappees)
+    fenetre.blit(mot, positionAffichageMot)
+
+    lienImagePendu = ".\\images pendu\\{}.png".format(7-jeu.nbDeCoupsRestants)
+    image = pygame.image.load(lienImagePendu)
+
+    fenetre.blit(image, positionImagePendu)
+
+
     pygame.display.flip()
 
-    sleep(0.5)
+    if jeu.nbDeCoupsRestants == 0:
+        sleep(1)
+        lienImagePendu = ".\\images pendu\\8.png"
+        image = pygame.image.load(lienImagePendu)
+        fenetre.blit(image, positionImagePendu)
+        pygame.display.flip()
+        sleep(1)
+        lienImagePendu = ".\\images pendu\\9.png"
+        image = pygame.image.load(lienImagePendu)
+        fenetre.blit(image, positionImagePendu)
+        pygame.display.flip()
+        sleep(1.5)
+    else:
+        sleep(0.2)
 
 
     if jeu.partieGagnee() or jeu.partiePerdue() : continuerJeu = False
 
 
+
+#   Fenetre de fin
+##  Position sur la fenêtre
+positionTexteDeFin = (400,500)
+positionPhrase = (400,150)
+positionMot = (400,250)
+
+
 continuerFin = True
 while continuerFin:
     if jeu.partieGagnee():
-        couleur = 0x00FF00
+        fenetre.fill(0x00FF00)
         texteDeFin = "GAGNE"
 
     if jeu.partiePerdue():
-        couleur = 0xFF0000
+        fenetre.fill(0xFF0000)
         texteDeFin = "PERDU"
 
     for event in pygame.event.get():
         if event.type == QUIT:
-            continueFin = False
-            pygame.quit()
+            continuerFin = False
 
 
-
-    fenetre.fill(couleur)
+    phrase = police.render("Le mot était", 1, (255,0,255))
     mot = police.render(jeu.motATrouver, 1, (255,0,255))
     texteDeFin = police.render(texteDeFin, 1, (255,255,255))
 
-    fenetre.blit(mot, (200,250))
-    fenetre.blit(texteDeFin, (500,500))
+    fenetre.blit(phrase, positionPhrase)
+    fenetre.blit(mot, positionMot)
+    fenetre.blit(texteDeFin, positionTexteDeFin)
+
 
     pygame.display.flip()
 
