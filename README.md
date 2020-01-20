@@ -1,6 +1,6 @@
 # __*Formation python*__
 
-*Espace de travail pour le projet du pendu : *
+*Espace de travail pour le projet du pendu :*
 
 ## Fonctionnement GIT
 
