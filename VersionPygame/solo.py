@@ -47,16 +47,16 @@ class Pendu():
     def lettreJoueePresente(self,lettreJouee):
         "Vérifie si la lettre est présente dans le mot"
 
-        if lettreJouee != "" and not lettreJouee in self.lettreTappees:
+
+        if not lettreJouee in self.lettreTappees:
             self.lettreTappees.append(lettreJouee)
             self.lettreTappeesSTR += lettreJouee
 
-
-        if lettreJouee in self.motATrouver:
-            return True
-        else:
-            self.nbDeCoupsRestants -= 1
-            return False
+            if lettreJouee in self.motATrouver:
+                return True
+            else:
+                self.nbDeCoupsRestants -= 1
+                return False
 
     def partiePerdue(self):
         "Vérifie si perdu"
@@ -161,7 +161,7 @@ while continuerChoixTheme:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
-        #Gestion des appuis touche pour choisir le theme
+        #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
         if event.type == KEYDOWN:
             carac= event.dict['unicode']
             if carac == '1' :
@@ -177,7 +177,6 @@ while continuerChoixTheme:
                 jeu.creationListeDeMots("pays")
                 continuerChoixTheme = False
 
-        #Gestion des appuis Souris pour choisir le theme
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             clicX = event.pos[0]
             clicY = event.pos[1]
@@ -195,18 +194,15 @@ while continuerChoixTheme:
                 jeu.creationListeDeMots("pays")
                 continuerChoixTheme = False
 
-
             print(clicX)
 
-    #   Génération des objets TEXTE des themes
+
     texteChoix  = police.render("Choix du thème", 1, (255,0,255))
     texteChiens = police.render("1:Chiens", 1, (255,0,0))
     texteFruits = police.render("2:Fruits", 1, (255,0,0))
     texteInstru = police.render("3:Instruments", 1, (255,0,0))
     textePays   = police.render("4:Pays", 1, (255,0,0))
 
-
-    #   Affichage des objets TEXTE des themes
     fenetre.blit(fondTheme,(0,0))
     fenetre.blit(texteChoix , positionTexteChoix)
     fenetre.blit(texteChiens, positionTexteChiens)
@@ -214,10 +210,8 @@ while continuerChoixTheme:
     fenetre.blit(texteInstru, positionTexteInstru)
     fenetre.blit(textePays  , positionTextePays)
 
-    #   Rechargement de la fenetre
     pygame.display.flip()
 
-    #   Tempo pour avoir 5 images / sec
     sleep(0.2)
 
 
@@ -254,32 +248,37 @@ while continuerJeu :
             clicY = event.pos[1]
             clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche)
 
-    #   Création des objets TEXTE (Thème, Lettre Tapées, Mot)
+
+
+
+
+
     themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
     lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
     mot = police.render(jeu.motAAfficher, 1, (66,255,66))
 
-
-    #   Rechargement des images
     fenetre.blit(fondJeu,(0,0))
+
     fenetre.blit(themeChoisi,positionThemeChoisi)
     fenetre.blit(lettreTap, positionLettresTappees)
     fenetre.blit(mot, positionAffichageMot)
 
 
-    #   Affichage Clavier
+    #Affichage Clavier
     affichageClavier(posXClavier,posYClavier)
 
-    #   Affichage du pendu
+
+
+
+
     lienImagePendu = ".\\images pendu\\{}.png".format(7-jeu.nbDeCoupsRestants)
     image = pygame.image.load(lienImagePendu)
+
     fenetre.blit(image, positionImagePendu)
 
-    #   Actualisation Fenetre (affichage)
+
     pygame.display.flip()
 
-
-    #   Gestion de l'animation de fin
     if jeu.nbDeCoupsRestants == 0:
         sleep(1)
         lienImagePendu = ".\\images pendu\\8.png"
@@ -295,7 +294,7 @@ while continuerJeu :
     else:
         sleep(0.2)
 
-    #   Jeu fini ? Gagné ou perdu ?
+
     if jeu.partieGagnee() or jeu.partiePerdue() : continuerJeu = False
 
 
@@ -306,37 +305,28 @@ positionTexteDeFin = (400,500)
 positionPhrase = (400,150)
 positionMot = (400,250)
 
-#   Boucle de fin
+
 continuerFin = True
 while continuerFin:
-    #   Gestion si fermeture de fenetre
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            continuerFin = False
-
-    #   Si jeu gagné (affichage)
     if jeu.partieGagnee():
         fenetre.fill(0x00FF00)
         texteDeFin = "GAGNE"
 
-    #   Si jeu perdu (affichage)
-    elif jeu.partiePerdue():
+    if jeu.partiePerdue():
         fenetre.fill(0xFF0000)
         texteDeFin = "PERDU"
 
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            continuerFin = False
 
-
-    #   Affichage de fin
     phrase = police.render("Le mot était", 1, (255,0,255))
     mot = police.render(jeu.motATrouver, 1, (255,0,255))
     texteDeFin = police.render(texteDeFin, 1, (255,255,255))
-
-    #   Génération fenêtre
     fenetre.blit(phrase, positionPhrase)
     fenetre.blit(mot, positionMot)
     fenetre.blit(texteDeFin, positionTexteDeFin)
 
-    #   Actualisation Fenetre (affichage)
     pygame.display.flip()
     sleep(0.5)
 
