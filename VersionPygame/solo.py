@@ -46,17 +46,18 @@ class Pendu():
 
     def lettreJoueePresente(self,lettreJouee):
         "Vérifie si la lettre est présente dans le mot"
+        lettreJouee = lettreJouee.upper()
+        if lettreJouee in "AZERTYUIOPQSDFGHJKLMWXCVBN":
+            print(lettreJouee)
+            if not lettreJouee in self.lettreTappees:
+                self.lettreTappees.append(lettreJouee)
+                self.lettreTappeesSTR += lettreJouee
 
-
-        if not lettreJouee in self.lettreTappees:
-            self.lettreTappees.append(lettreJouee)
-            self.lettreTappeesSTR += lettreJouee
-
-            if lettreJouee in self.motATrouver:
-                return True
-            else:
-                self.nbDeCoupsRestants -= 1
-                return False
+                if lettreJouee in self.motATrouver:
+                    return True
+                else:
+                    self.nbDeCoupsRestants -= 1
+                    return False
 
     def partiePerdue(self):
         "Vérifie si perdu"
