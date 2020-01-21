@@ -17,7 +17,12 @@ class Pendu():
         "Création de la liste des mots en fonction du theme en attribut"
         self.affichageComplet
         self.listeDeMots = []
+        self.them_path=".\\" + theme + "\\"
+        # Obtenir le path de index.csv
+        theme_index="index.csv"
+        fichier=self.them_path+ theme_index
 
+        """ Phuong améliorer code
         if theme == "chiens":
             fichier = ".\\chiens\\index.csv"
         elif theme == "pays":
@@ -26,15 +31,16 @@ class Pendu():
             fichier = ".\\instruments\\index.csv"
         elif theme == "fruits":
             fichier = ".\\fruits\\index.csv"
-        with open(fichier, encoding='utf-8') as f :
+        """
+        with open(fichier, encoding='utf-8') as f : # Ouvrir le fichier index
             for ligne in f:
-                ligne_recuperee = f.readline()
+                ligne_recuperee = f.readline() # Obtenir la contente du fichier
                 ligne_coupee = ligne_recuperee.split(";")
 
 
-                mot = ligne_coupee[0]
-                #imageDeFin = ligne_coupee[1]
-                #lienURL  = ligne_coupee[2]
+                mot = ligne_coupee[0] # Obtenir le mot
+                #self.imageDeFin = ligne_coupee[1]
+                #self.lienURL  = ligne_coupee[2]
                 self.listeDeMots.append(mot)
 
 
@@ -134,6 +140,11 @@ def clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche):
 ##  Programme Principal
 pygame.init()
 
+# Initial constants
+th_chien="chiens"
+th_fruit="fruits"
+th_instrument="instruments"
+th_pays="pays"
 
 police = pygame.font.SysFont("impact", 50)
 
@@ -165,16 +176,16 @@ while continuerChoixTheme:
         if event.type == KEYDOWN:
             carac= event.dict['unicode']
             if carac == '1' :
-                jeu.creationListeDeMots("chiens")
+                jeu.creationListeDeMots(th_chien)
                 continuerChoixTheme = False
             elif carac == '2':
-                jeu.creationListeDeMots("fruits")
+                jeu.creationListeDeMots(th_fruit)
                 continuerChoixTheme = False
             elif carac == '3':
-                jeu.creationListeDeMots("instruments")
+                jeu.creationListeDeMots(th_instrument)
                 continuerChoixTheme = False
             elif carac == '4':
-                jeu.creationListeDeMots("pays")
+                jeu.creationListeDeMots(th_pays)
                 continuerChoixTheme = False
 
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
@@ -182,16 +193,16 @@ while continuerChoixTheme:
             clicY = event.pos[1]
 
             if 450 < clicX < 620 and 150 < clicY < 200:
-                jeu.creationListeDeMots("chiens")
+                jeu.creationListeDeMots(th_chien)
                 continuerChoixTheme = False
             elif 460 < clicX < 610 and 250 < clicY < 300:
-                jeu.creationListeDeMots("fruits")
+                jeu.creationListeDeMots(th_fruit)
                 continuerChoixTheme = False
             elif 410 < clicX < 700 and 350 < clicY < 400:
-                jeu.creationListeDeMots("instruments")
+                jeu.creationListeDeMots(th_instrument)
                 continuerChoixTheme = False
             elif 470 < clicX < 600 and 450 < clicY < 500:
-                jeu.creationListeDeMots("pays")
+                jeu.creationListeDeMots(th_pays)
                 continuerChoixTheme = False
 
             print(clicX)
@@ -320,9 +331,12 @@ while continuerFin:
         if event.type == QUIT:
             continuerFin = False
 
+
+
     phrase = police.render("Le mot était", 1, (255,0,255))
     mot = police.render(jeu.motATrouver, 1, (255,0,255))
     texteDeFin = police.render(texteDeFin, 1, (255,255,255))
+
     fenetre.blit(phrase, positionPhrase)
     fenetre.blit(mot, positionMot)
     fenetre.blit(texteDeFin, positionTexteDeFin)
