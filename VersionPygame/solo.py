@@ -105,15 +105,29 @@ def affichageClavier(posXClavier,posYClavier):
         if not lettre in jeu.lettreTappeesSTR:
             lettre  = police.render(lettre, 1, (66,66,66))
             if i <10:
-                fenetre.blit(lettre , (posXClavier+i * 50,posYClavier+0))
+                fenetre.blit(lettre , (posXClavier +i*50                              , posYClavier+ 0))
             elif i < 20:
-                fenetre.blit(lettre , (posXClavier+i%10 * 50,posYClavier+50))
+                fenetre.blit(lettre , (posXClavier +i%10* tailleTouche                , posYClavier+ tailleTouche))
             else:
-                fenetre.blit(lettre , (posXClavier+i%10 * 50 + 100,posYClavier+100))
+                fenetre.blit(lettre , (posXClavier +i%10* tailleTouche+2*tailleTouche , posYClavier+ 2*tailleTouche))
 
 
-def clicToucheClavier(posXClavier,posYClavier,clicX,clicY):
-    print(clicX)
+def clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche):
+    listeLettre = "AZERTYUIOPQSDFGHJKLM--WXCVBN--------------------------------"
+
+    if clicX > posXClavier and clicY > posYClavier:
+        print(clicX, clicY)
+        clicX = (clicX - posXClavier) // tailleTouche
+        clicY = (clicY - posYClavier) // tailleTouche
+
+        lettreCliquee = listeLettre[clicX + clicY*10]
+
+        if lettreCliquee != "-":
+            jeu.lettreJoueePresente(lettreCliquee)
+            jeu.affichageComplet()
+
+
+
 
 
 
@@ -131,8 +145,8 @@ fondTheme = pygame.image.load(".\\fond\\fondTheme.jpg")
 fondJeu = pygame.image.load(".\\fond\\fondJeu.jpg")
 
 #   Placement du clavier
-posXClavier,posYClavier =540,500
-
+posXClavier,posYClavier = 540,500
+tailleTouche = 50
 continuerChoixTheme = True
 #   Fenetre choix du thème
 ##  Position sur la fenêtre
@@ -162,6 +176,27 @@ while continuerChoixTheme:
             elif carac == '4':
                 jeu.creationListeDeMots("pays")
                 continuerChoixTheme = False
+
+        if event.type == MOUSEBUTTONDOWN and event.button == 1:
+            clicX = event.pos[0]
+            clicY = event.pos[1]
+
+            if 450 < clicX < 620 and 150 < clicY < 200:
+                jeu.creationListeDeMots("chiens")
+                continuerChoixTheme = False
+            elif 460 < clicX < 610 and 250 < clicY < 300:
+                jeu.creationListeDeMots("fruits")
+                continuerChoixTheme = False
+            elif 410 < clicX < 700 and 350 < clicY < 400:
+                jeu.creationListeDeMots("instruments")
+                continuerChoixTheme = False
+            elif 470 < clicX < 600 and 450 < clicY < 500:
+                jeu.creationListeDeMots("pays")
+                continuerChoixTheme = False
+
+
+            print(clicX)
+
     texteChoix  = police.render("Choix du thème", 1, (255,0,255))
     texteChiens = police.render("1:Chiens", 1, (255,0,0))
     texteFruits = police.render("2:Fruits", 1, (255,0,0))
@@ -208,10 +243,15 @@ while continuerJeu :
 
             #   S'éxécute uniquement quand j'appuie sur une touche
             jeu.affichageComplet()
+        if event.type == MOUSEBUTTONDOWN and event.button == 1:
+            clicX = event.pos[0]
+            clicY = event.pos[1]
+            clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche)
 
 
 
-        #clicToucheClavier(posXClavier,posYClavier,clicX,clicY)
+
+
 
     themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
     lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
