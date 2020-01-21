@@ -97,23 +97,8 @@ class Pendu():
         print(self.affichageMot())
 
 
-def affichageClavier(posXClavier,posYClavier):
-    listeLettre = "AZERTYUIOPQSDFGHJKLMWXCVBN"
-    for i in range(len(listeLettre)):
-
-        lettre = listeLettre[i]
-        if not lettre in jeu.lettreTappeesSTR:
-            lettre  = police.render(lettre, 1, (66,66,66))
-            if i <10:
-                fenetre.blit(lettre , (posXClavier+i * 50,posYClavier+0))
-            elif i < 20:
-                fenetre.blit(lettre , (posXClavier+i%10 * 50,posYClavier+50))
-            else:
-                fenetre.blit(lettre , (posXClavier+i%10 * 50 + 100,posYClavier+100))
 
 
-def clicToucheClavier(posXClavier,posYClavier,clicX,clicY):
-    print(clicX)
 
 
 
@@ -123,6 +108,10 @@ pygame.init()
 
 police = pygame.font.SysFont("impact", 50)
 
+
+
+
+
 fenetre = pygame.display.set_mode((1080,720))
 jeu = Pendu()
 
@@ -130,8 +119,12 @@ jeu = Pendu()
 fondTheme = pygame.image.load(".\\fond\\fondTheme.jpg")
 fondJeu = pygame.image.load(".\\fond\\fondJeu.jpg")
 
-#   Placement du clavier
-posXClavier,posYClavier =540,500
+
+
+
+
+
+
 
 continuerChoixTheme = True
 #   Fenetre choix du thème
@@ -147,6 +140,7 @@ while continuerChoixTheme:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
+
         #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
         if event.type == KEYDOWN:
             carac= event.dict['unicode']
@@ -162,13 +156,16 @@ while continuerChoixTheme:
             elif carac == '4':
                 jeu.creationListeDeMots("pays")
                 continuerChoixTheme = False
+
     texteChoix  = police.render("Choix du thème", 1, (255,0,255))
     texteChiens = police.render("1:Chiens", 1, (255,0,0))
     texteFruits = police.render("2:Fruits", 1, (255,0,0))
     texteInstru = police.render("3:Instruments", 1, (255,0,0))
     textePays   = police.render("4:Pays", 1, (255,0,0))
 
+
     fenetre.blit(fondTheme,(0,0))
+
     fenetre.blit(texteChoix , positionTexteChoix)
     fenetre.blit(texteChiens, positionTexteChiens)
     fenetre.blit(texteFruits, positionTexteFruits)
@@ -184,8 +181,8 @@ while continuerChoixTheme:
 ##  Position sur la fenêtre
 positionImagePendu =    (0, 50)
 positionThemeChoisi =   (720,120)
-positionLettresTappees =(500,240)
-positionAffichageMot =  (500,360)
+positionLettresTappees =(500,360)
+positionAffichageMot =  (500,550)
 
 
 jeu.selectionMot()
@@ -207,11 +204,9 @@ while continuerJeu :
 
 
             #   S'éxécute uniquement quand j'appuie sur une touche
+
             jeu.affichageComplet()
 
-
-
-        #clicToucheClavier(posXClavier,posYClavier,clicX,clicY)
 
     themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
     lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
@@ -222,14 +217,6 @@ while continuerJeu :
     fenetre.blit(themeChoisi,positionThemeChoisi)
     fenetre.blit(lettreTap, positionLettresTappees)
     fenetre.blit(mot, positionAffichageMot)
-
-
-    #Affichage Clavier
-    affichageClavier(posXClavier,posYClavier)
-
-
-
-
 
     lienImagePendu = ".\\images pendu\\{}.png".format(7-jeu.nbDeCoupsRestants)
     image = pygame.image.load(lienImagePendu)
@@ -280,14 +267,18 @@ while continuerFin:
         if event.type == QUIT:
             continuerFin = False
 
+
     phrase = police.render("Le mot était", 1, (255,0,255))
     mot = police.render(jeu.motATrouver, 1, (255,0,255))
     texteDeFin = police.render(texteDeFin, 1, (255,255,255))
+
     fenetre.blit(phrase, positionPhrase)
     fenetre.blit(mot, positionMot)
     fenetre.blit(texteDeFin, positionTexteDeFin)
 
+
     pygame.display.flip()
+
     sleep(0.5)
 
 pygame.quit()
