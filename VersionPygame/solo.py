@@ -22,47 +22,48 @@ class Pendu():
         theme_index="index.csv"
         fichier=self.them_path+ theme_index
 
-        """ Phuong améliorer code
-        if theme == "chiens":
-            fichier = ".\\chiens\\index.csv"
-        elif theme == "pays":
-            fichier = ".\\pays\\index.csv"
-        elif theme == "instruments":
-            fichier = ".\\instruments\\index.csv"
-        elif theme == "fruits":
-            fichier = ".\\fruits\\index.csv"
-        """
+        self.listeImage = []
+        self.listeLien = []
+
         with open(fichier, encoding='utf-8') as f : # Ouvrir le fichier index
             for ligne in f:
                 ligne_recuperee = f.readline() # Obtenir la contente du fichier
                 ligne_coupee = ligne_recuperee.split(";") #Coupe la ligne base de ";"
 
+                print(ligne_coupee)
 
                 mot = ligne_coupee[0] # Obtenir le mot
-                #self.imageDeFin = ligne_coupee[1]
-                #self.lienURL  = ligne_coupee[2]
+                imageDeFin = ligne_coupee[1]
+                lienURL  = ligne_coupee[2]
                 self.listeDeMots.append(mot) # Ajouter lo mot coupee à liste
-
+                self.listeImage.append(imageDeFin)
+                self.listeLien.append(lienURL)
 
     def selectionMot(self):
         "Tire un mot au hasard dans la liste listeDeMots"
-        self.motATrouver = self.listeDeMots[randint(0,len(self.listeDeMots)-1)]
+        tirageAuSort = randint(0,len(self.listeDeMots)-1)
+        self.motATrouver = self.listeDeMots[tirageAuSort]
+        self.imageAAfficherFin = self.listeImage[tirageAuSort]
+        self.listeLien = self.listeLien[tirageAuSort]
 
-        return self.motATrouver
+        print(self.motATrouver,self.imageAAfficherFin,self.listeLien)
+
+        return self.motATrouver,self.imageAAfficherFin,self.listeLien
 
     def lettreJoueePresente(self,lettreJouee):
         "Vérifie si la lettre est présente dans le mot"
+        lettreJouee = lettreJouee.upper()
+        if lettreJouee in "AZERTYUIOPQSDFGHJKLMWXCVBN":
+            print(lettreJouee)
+            if not lettreJouee in self.lettreTappees: # Vérifier si lettreJouee est été tappée
+                self.lettreTappees.append(lettreJouee) # Ajouter lettreJouee à la liste dèja tapée
+                self.lettreTappeesSTR += lettreJouee
 
-
-        if not lettreJouee in self.lettreTappees: # Vérifier si lettreJouee est été tappée
-            self.lettreTappees.append(lettreJouee) # Ajouter lettreJouee à la liste dèja tapée
-            self.lettreTappeesSTR += lettreJouee
-
-            if lettreJouee in self.motATrouver: # Vérifier si lettreJouee exist dans le mot à trouver
-                return True
-            else: # Si lettreJouee n'exist pas dans le mot à trouver
-                self.nbDeCoupsRestants -= 1 # Diminus le nombre de coups restants
-                return False
+                if lettreJouee in self.motATrouver: # Vérifier si lettreJouee exist dans le mot à trouver
+                    return True
+                else: # Si lettreJouee n'exist pas dans le mot à trouver
+                    self.nbDeCoupsRestants -= 1 # Diminus le nombre de coups restants
+                    return False
 
     def partiePerdue(self):
         "Vérifie si perdu"
@@ -287,6 +288,7 @@ while continuerJeu :
     affichageClavier(posXClavier,posYClavier)
 
     #Affichage ImagePendu
+
     lienImagePendu = ".\\images pendu\\{}.png".format(7-jeu.nbDeCoupsRestants)
     image = pygame.image.load(lienImagePendu)
 
@@ -321,6 +323,10 @@ while continuerJeu :
 positionTexteDeFin = (400,500)
 positionPhrase = (400,150)
 positionMot = (400,250)
+positionImageDeFin = (200,200)
+
+imageDeFin = "{}\{}".format(jeu.themeChoisi,jeu.imageAAfficherFin)
+imageDeFin = pygame.image.load(imageDeFin)
 
 # Afficher la texte gagne/ perdu
 continuerFin = True
@@ -343,9 +349,11 @@ while continuerFin:
     mot = police.render(jeu.motATrouver, 1, (255,0,255))
     texteDeFin = police.render(texteDeFin, 1, (255,255,255))
 
+    fenetre.blit(imageDeFin, positionImageDeFin)
+
     fenetre.blit(phrase, positionPhrase)
     fenetre.blit(mot, positionMot)
-    fenetre.blit(texteDeFin, positionTexteDeFin)
+    fenetre.blit(texteDeFin, positionImageDeFin)
 
     pygame.display.flip()
     sleep(0.5)
