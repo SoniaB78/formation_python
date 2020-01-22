@@ -7,7 +7,7 @@ class Pendu():
 
     def __init__(self):
 
-        self.nbDeCoupsRestants = 7
+        self.nbDeCoupsRestants = 7 #le nombre de coups restants
         self.lettreTappees = []
         self.lettreTappeesSTR = ""
         self.motAAfficher = []
@@ -35,13 +35,13 @@ class Pendu():
         with open(fichier, encoding='utf-8') as f : # Ouvrir le fichier index
             for ligne in f:
                 ligne_recuperee = f.readline() # Obtenir la contente du fichier
-                ligne_coupee = ligne_recuperee.split(";")
+                ligne_coupee = ligne_recuperee.split(";") #Coupe la ligne base de ";"
 
 
                 mot = ligne_coupee[0] # Obtenir le mot
                 #self.imageDeFin = ligne_coupee[1]
                 #self.lienURL  = ligne_coupee[2]
-                self.listeDeMots.append(mot)
+                self.listeDeMots.append(mot) # Ajouter lo mot coupee à liste
 
 
     def selectionMot(self):
@@ -54,26 +54,26 @@ class Pendu():
         "Vérifie si la lettre est présente dans le mot"
 
 
-        if not lettreJouee in self.lettreTappees:
-            self.lettreTappees.append(lettreJouee)
+        if not lettreJouee in self.lettreTappees: # Vérifier si lettreJouee est été tappée
+            self.lettreTappees.append(lettreJouee) # Ajouter lettreJouee à la liste dèja tapée
             self.lettreTappeesSTR += lettreJouee
 
-            if lettreJouee in self.motATrouver:
+            if lettreJouee in self.motATrouver: # Vérifier si lettreJouee exist dans le mot à trouver
                 return True
-            else:
-                self.nbDeCoupsRestants -= 1
+            else: # Si lettreJouee n'exist pas dans le mot à trouver
+                self.nbDeCoupsRestants -= 1 # Diminus le nombre de coups restants
                 return False
 
     def partiePerdue(self):
         "Vérifie si perdu"
-        if self.nbDeCoupsRestants <= 0:
+        if self.nbDeCoupsRestants <= 0: #Vérifier si il reste le coup à tapper
             return True
         else:
             return False
 
     def partieGagnee(self):
         "Vérifie si gagné"
-        if "-" in self.motAAfficher:
+        if "-" in self.motAAfficher: # vérifier si toutes les lettres sont trouvées
             return False
         else:
             return True
@@ -89,6 +89,7 @@ class Pendu():
             else:
                 self.motAAfficher.append("-")
 
+        # Convertir la liste de lettre jouee à chaine de caractères
         motEnStr = ""
         for lettre in self.motAAfficher:
             motEnStr += lettre
@@ -105,9 +106,11 @@ class Pendu():
 
 
 def affichageClavier(posXClavier,posYClavier):
+    #Affichage clavier sur la fenetre
     listeLettre = "AZERTYUIOPQSDFGHJKLMWXCVBN"
-    for i in range(len(listeLettre)):
 
+    # Difinir le nombre de lettre à affichager chaque ligne, 10 lettres par ligne
+    for i in range(len(listeLettre)):
         lettre = listeLettre[i]
         if not lettre in jeu.lettreTappeesSTR:
             lettre  = police.render(lettre, 1, (66,66,66))
@@ -120,22 +123,19 @@ def affichageClavier(posXClavier,posYClavier):
 
 
 def clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche):
+    #attraper un événement de clicher sur la clavier de la fenetre
     listeLettre = "AZERTYUIOPQSDFGHJKLM--WXCVBN--------------------------------"
 
-    if clicX > posXClavier and clicY > posYClavier:
+    if clicX > posXClavier and clicY > posYClavier: # Vérifier si le joueur clique sur la clavier ou pas
         print(clicX, clicY)
         clicX = (clicX - posXClavier) // tailleTouche
         clicY = (clicY - posYClavier) // tailleTouche
 
         lettreCliquee = listeLettre[clicX + clicY*10]
 
-        if lettreCliquee != "-":
+        if lettreCliquee != "-": # Si lettre cliquée n'est pas "-"
             jeu.lettreJoueePresente(lettreCliquee)
             jeu.affichageComplet()
-
-
-
-
 
 
 ##  Programme Principal
@@ -147,8 +147,10 @@ th_fruit="fruits"
 th_instrument="instruments"
 th_pays="pays"
 
+# Definir la police
 police = pygame.font.SysFont("impact", 50)
 
+# Definir la taille de la fenetre
 fenetre = pygame.display.set_mode((1080,720))
 jeu = Pendu()
 
@@ -174,6 +176,7 @@ while continuerChoixTheme:
         if event.type == QUIT:
             pygame.quit()
         #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
+        # Tapper la clavier d'ordinateur
         if event.type == KEYDOWN:
             carac= event.dict['unicode']
             if carac == '1' :
@@ -189,6 +192,7 @@ while continuerChoixTheme:
                 jeu.creationListeDeMots(th_pays)
                 continuerChoixTheme = False
 
+        # Cliquer la clavier sur la fenetre
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             clicX = event.pos[0]
             clicY = event.pos[1]
@@ -208,7 +212,7 @@ while continuerChoixTheme:
 
             print(clicX)
 
-
+    # afficher les themes
     texteChoix  = police.render("Choix du thème", 1, (255,0,255))
     texteChiens = police.render("1:Chiens", 1, (255,0,0))
     texteFruits = police.render("2:Fruits", 1, (255,0,0))
@@ -234,8 +238,10 @@ positionThemeChoisi =   (720,120)
 positionLettresTappees =(500,240)
 positionAffichageMot =  (500,360)
 
-
+# Appler le method à Prendre le mot Aléatoire
 jeu.selectionMot()
+
+# Appler le method à affichageComplet
 jeu.affichageComplet()
 lettreATester = list()
 #BOUCLE DE JEU
@@ -249,40 +255,38 @@ while continuerJeu :
         #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
         if event.type == KEYDOWN:
             carac= event.dict['unicode']
-            carac = carac.upper()
+            carac = carac.upper() # Convertir la lettre à majuscul
             jeu.lettreJoueePresente(carac)
 
 
             #   S'éxécute uniquement quand j'appuie sur une touche
             jeu.affichageComplet()
+
+        # Cliquer la clavier sur la fenetre
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             clicX = event.pos[0]
             clicY = event.pos[1]
             clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche)
 
-
-
-
-
-
+    #Prendre le theme choisi
     themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
+    #Prendre la lettre tapée
     lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
     mot = police.render(jeu.motAAfficher, 1, (66,255,66))
-
+    # afficher le fond de la fenetre
     fenetre.blit(fondJeu,(0,0))
-
+    # afficher le theme
     fenetre.blit(themeChoisi,positionThemeChoisi)
+    # afficher la lettre tapée
     fenetre.blit(lettreTap, positionLettresTappees)
+    # afficher le mot
     fenetre.blit(mot, positionAffichageMot)
 
 
-    #Affichage Clavier
+    #Affichage la Clavier
     affichageClavier(posXClavier,posYClavier)
 
-
-
-
-
+    #Affichage ImagePendu
     lienImagePendu = ".\\images pendu\\{}.png".format(7-jeu.nbDeCoupsRestants)
     image = pygame.image.load(lienImagePendu)
 
@@ -291,6 +295,7 @@ while continuerJeu :
 
     pygame.display.flip()
 
+    # Afficher image en cas de perdu
     if jeu.nbDeCoupsRestants == 0:
         sleep(1)
         lienImagePendu = ".\\images pendu\\8.png"
@@ -317,7 +322,7 @@ positionTexteDeFin = (400,500)
 positionPhrase = (400,150)
 positionMot = (400,250)
 
-
+# Afficher la texte gagne/ perdu
 continuerFin = True
 while continuerFin:
     if jeu.partieGagnee():
@@ -333,7 +338,7 @@ while continuerFin:
             continuerFin = False
 
 
-
+    # Afficher le mot
     phrase = police.render("Le mot était", 1, (255,0,255))
     mot = police.render(jeu.motATrouver, 1, (255,0,255))
     texteDeFin = police.render(texteDeFin, 1, (255,255,255))
