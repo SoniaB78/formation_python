@@ -94,6 +94,7 @@ class Pendu():
             motEnStr += lettre
 
         self.motAAfficher = motEnStr
+        print(self.motAAfficher)
 
         return self.motAAfficher
 
