@@ -17,6 +17,8 @@ class Pendu():
         "Création de la liste des mots en fonction du theme en attribut"
         self.affichageComplet
         self.listeDeMots = []
+        self.listeImage = []
+        self.listeLien = []
 
         if theme == "chiens":
             fichier = ".\\chiens\\index.csv"
@@ -31,18 +33,26 @@ class Pendu():
                 ligne_recuperee = f.readline()
                 ligne_coupee = ligne_recuperee.split(";")
 
+                print(ligne_coupee)
 
                 mot = ligne_coupee[0]
-                #imageDeFin = ligne_coupee[1]
-                #lienURL  = ligne_coupee[2]
+                imageDeFin = ligne_coupee[1]
+                lienURL  = ligne_coupee[2]
                 self.listeDeMots.append(mot)
+                self.listeImage.append(imageDeFin)
+                self.listeLien.append(lienURL)
 
 
     def selectionMot(self):
         "Tire un mot au hasard dans la liste listeDeMots"
-        self.motATrouver = self.listeDeMots[randint(0,len(self.listeDeMots)-1)]
+        tirageAuSort = randint(0,len(self.listeDeMots)-1)
+        self.motATrouver = self.listeDeMots[tirageAuSort]
+        self.imageAAfficherFin = self.listeImage[tirageAuSort]
+        self.listeLien = self.listeLien[tirageAuSort]
 
-        return self.motATrouver
+        print(self.motATrouver,self.imageAAfficherFin,self.listeLien)
+
+        return self.motATrouver,self.imageAAfficherFin,self.listeLien
 
     def lettreJoueePresente(self,lettreJouee):
         "Vérifie si la lettre est présente dans le mot"
@@ -250,10 +260,6 @@ while continuerJeu :
             clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche)
 
 
-
-
-
-
     themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
     lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
     mot = police.render(jeu.motAAfficher, 1, (66,255,66))
@@ -267,9 +273,6 @@ while continuerJeu :
 
     #Affichage Clavier
     affichageClavier(posXClavier,posYClavier)
-
-
-
 
 
     lienImagePendu = ".\\images pendu\\{}.png".format(7-jeu.nbDeCoupsRestants)
@@ -305,6 +308,10 @@ while continuerJeu :
 positionTexteDeFin = (400,500)
 positionPhrase = (400,150)
 positionMot = (400,250)
+positionImageDeFin = (200,200)
+
+imageDeFin = "{}\{}".format(jeu.themeChoisi,jeu.imageAAfficherFin)
+imageDeFin = pygame.image.load(imageDeFin)
 
 
 continuerFin = True
@@ -324,9 +331,10 @@ while continuerFin:
     phrase = police.render("Le mot était", 1, (255,0,255))
     mot = police.render(jeu.motATrouver, 1, (255,0,255))
     texteDeFin = police.render(texteDeFin, 1, (255,255,255))
+    fenetre.blit(imageDeFin, positionImageDeFin)
     fenetre.blit(phrase, positionPhrase)
     fenetre.blit(mot, positionMot)
-    fenetre.blit(texteDeFin, positionTexteDeFin)
+    fenetre.blit(texteDeFin, positionImageDeFin)
 
     pygame.display.flip()
     sleep(0.5)
