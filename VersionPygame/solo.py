@@ -17,13 +17,13 @@ class Pendu():
         "Création de la liste des mots en fonction du theme en attribut"
         self.affichageComplet
         self.listeDeMots = []
+        self.listeImage = []
+        self.listeLien = []
+
         self.them_path=".\\" + theme + "\\"
         # Obtenir le path de index.csv
         theme_index="index.csv"
         fichier=self.them_path+ theme_index
-
-        self.listeImage = []
-        self.listeLien = []
 
         with open(fichier, encoding='utf-8') as f : # Ouvrir le fichier index
             for ligne in f:
@@ -32,10 +32,10 @@ class Pendu():
 
                 print(ligne_coupee)
 
-                mot = ligne_coupee[0] # Obtenir le mot
+                mot = ligne_coupee[0]# Obtenir le mot
                 imageDeFin = ligne_coupee[1]
                 lienURL  = ligne_coupee[2]
-                self.listeDeMots.append(mot) # Ajouter lo mot coupee à liste
+                self.listeDeMots.append(mot)# Ajouter le mot coupee à liste
                 self.listeImage.append(imageDeFin)
                 self.listeLien.append(lienURL)
 
@@ -55,6 +55,7 @@ class Pendu():
         lettreJouee = lettreJouee.upper()
         if lettreJouee in "AZERTYUIOPQSDFGHJKLMWXCVBN":
             print(lettreJouee)
+
             if not lettreJouee in self.lettreTappees: # Vérifier si lettreJouee est été tappée
                 self.lettreTappees.append(lettreJouee) # Ajouter lettreJouee à la liste dèja tapée
                 self.lettreTappeesSTR += lettreJouee
@@ -64,6 +65,7 @@ class Pendu():
                 else: # Si lettreJouee n'exist pas dans le mot à trouver
                     self.nbDeCoupsRestants -= 1 # Diminus le nombre de coups restants
                     return False
+
 
     def partiePerdue(self):
         "Vérifie si perdu"
@@ -163,6 +165,7 @@ fondJeu = pygame.image.load(".\\fond\\fondJeu.jpg")
 posXClavier,posYClavier = 540,500
 tailleTouche = 50
 continuerChoixTheme = True
+
 #   Fenetre choix du thème
 ##  Position sur la fenêtre
 positionTexteChoix =    (380,20)
@@ -269,6 +272,7 @@ while continuerJeu :
             clicY = event.pos[1]
             clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche)
 
+
     #Prendre le theme choisi
     themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
     #Prendre la lettre tapée
@@ -288,12 +292,10 @@ while continuerJeu :
     affichageClavier(posXClavier,posYClavier)
 
     #Affichage ImagePendu
-
     lienImagePendu = ".\\images pendu\\{}.png".format(7-jeu.nbDeCoupsRestants)
     image = pygame.image.load(lienImagePendu)
 
     fenetre.blit(image, positionImagePendu)
-
 
     pygame.display.flip()
 
@@ -313,9 +315,7 @@ while continuerJeu :
     else:
         sleep(0.2)
 
-
     if jeu.partieGagnee() or jeu.partiePerdue() : continuerJeu = False
-
 
 
 #   Fenetre de fin
