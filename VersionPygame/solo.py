@@ -20,7 +20,7 @@ class Pendu():
         self.listeImage = []
         self.listeLien = []
 
-        self.them_path=".\\" + theme + "\\"
+        self.them_path="./" + theme + "/"
         # Obtenir le path de index.csv
         theme_index="index.csv"
         fichier=self.them_path+ theme_index
@@ -158,8 +158,13 @@ fenetre = pygame.display.set_mode((1080,720))
 jeu = Pendu()
 
 #Gestion des fonds des différentes fenetres
-fondTheme = pygame.image.load(".\\fond\\fondTheme.jpg")
-fondJeu = pygame.image.load(".\\fond\\fondJeu.jpg")
+fondRegle_img="./fond/fondRegle.jpg" # fenetre 1
+fondTheme_img="./fond/fondTheme.jpg" # fenetre 2
+fondJeu_img="./fond/fondJeu.jpg" # fenetre 3
+
+fondTheme = pygame.image.load(fondTheme_img)
+fondJeu = pygame.image.load(fondJeu_img)
+
 
 #   Placement du clavier
 posXClavier,posYClavier = 540,500
@@ -248,6 +253,7 @@ jeu.selectionMot()
 # Appler le method à affichageComplet
 jeu.affichageComplet()
 lettreATester = list()
+
 #BOUCLE DE JEU
 continuerJeu = True
 while continuerJeu :
@@ -292,7 +298,7 @@ while continuerJeu :
     affichageClavier(posXClavier,posYClavier)
 
     #Affichage ImagePendu
-    lienImagePendu = ".\\images pendu\\{}.png".format(7-jeu.nbDeCoupsRestants)
+    lienImagePendu = "./images pendu/{}.png".format(7-jeu.nbDeCoupsRestants)
     image = pygame.image.load(lienImagePendu)
 
     fenetre.blit(image, positionImagePendu)
@@ -302,12 +308,12 @@ while continuerJeu :
     # Afficher image en cas de perdu
     if jeu.nbDeCoupsRestants == 0:
         sleep(1)
-        lienImagePendu = ".\\images pendu\\8.png"
+        lienImagePendu = "./images pendu/8.png"
         image = pygame.image.load(lienImagePendu)
         fenetre.blit(image, positionImagePendu)
         pygame.display.flip()
         sleep(1)
-        lienImagePendu = ".\\images pendu\\9.png"
+        lienImagePendu = "./images pendu/9.png"
         image = pygame.image.load(lienImagePendu)
         fenetre.blit(image, positionImagePendu)
         pygame.display.flip()
@@ -325,7 +331,7 @@ positionPhrase = (400,150)
 positionMot = (400,250)
 positionImageDeFin = (200,200)
 
-imageDeFin = "{}\{}".format(jeu.themeChoisi,jeu.imageAAfficherFin)
+imageDeFin = "{}/{}".format(jeu.themeChoisi,jeu.imageAAfficherFin)
 imageDeFin = pygame.image.load(imageDeFin)
 
 # Afficher la texte gagne/ perdu
