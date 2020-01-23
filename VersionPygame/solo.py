@@ -326,10 +326,10 @@ while continuerJeu :
 
 #   Fenetre de fin
 ##  Position sur la fenêtre
-positionTexteDeFin = (400,500)
-positionPhrase = (400,150)
-positionMot = (400,250)
-positionImageDeFin = (200,200)
+positionTexteDeFin =  (475,50)
+positionPhrase = (50,300)
+positionMot = (50,400)
+positionImageDeFin = (540,180)
 
 imageDeFin = "{}/{}".format(jeu.themeChoisi,jeu.imageAAfficherFin)
 imageDeFin = pygame.image.load(imageDeFin)
@@ -351,15 +351,18 @@ while continuerFin:
 
 
     # Afficher le mot
-    phrase = police.render("Le mot était", 1, (255,0,255))
+    phrase = police.render("Le mot était :", 1, (255,0,255))
     mot = police.render(jeu.motATrouver, 1, (255,0,255))
     texteDeFin = police.render(texteDeFin, 1, (255,255,255))
+    fenetre.blit(imageDeFin,positionImageDeFin)
 
-    fenetre.blit(imageDeFin, positionImageDeFin)
+    #commande pour formater l'image en 500x500
+    imageDeFin=pygame.transform.scale(imageDeFin,(500,500))
 
+    pygame.display.flip()
     fenetre.blit(phrase, positionPhrase)
     fenetre.blit(mot, positionMot)
-    fenetre.blit(texteDeFin, positionImageDeFin)
+    fenetre.blit(texteDeFin, positionTexteDeFin)
 
     pygame.display.flip()
     sleep(0.5)
