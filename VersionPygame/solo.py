@@ -44,11 +44,11 @@ class Pendu():
         tirageAuSort = randint(0,len(self.listeDeMots)-1)
         self.motATrouver = self.listeDeMots[tirageAuSort]
         self.imageAAfficherFin = self.listeImage[tirageAuSort]
-        self.listeLien = self.listeLien[tirageAuSort]
+        self.lienAAfficherFin = self.listeLien[tirageAuSort]
 
-        print(self.motATrouver,self.imageAAfficherFin,self.listeLien)
+        print(self.motATrouver,self.imageAAfficherFin,self.lienAAfficherFin )
 
-        return self.motATrouver,self.imageAAfficherFin,self.listeLien
+        return self.motATrouver,self.imageAAfficherFin,self.lienAAfficherFin
 
     def lettreJoueePresente(self,lettreJouee):
         "Vérifie si la lettre est présente dans le mot"
@@ -158,211 +158,258 @@ fenetre = pygame.display.set_mode((1080,720))
 jeu = Pendu()
 
 #Gestion des fonds des différentes fenetres
-fondRegle_img="./fond/fondRegle.jpg" # fenetre 1
+fondRegle_img="./fond/fondRegles.jpg" # fenetre 1
 fondTheme_img="./fond/fondTheme.jpg" # fenetre 2
 fondJeu_img="./fond/fondJeu.jpg" # fenetre 3
 
+fondRegle=pygame.image.load(fondRegle_img)
 fondTheme = pygame.image.load(fondTheme_img)
 fondJeu = pygame.image.load(fondJeu_img)
 
+#   Fenetre régle
+# definir position du bouton jouer
+positionBouJouer =(650,480)
+contineurJouer=True
 
-#   Placement du clavier
-posXClavier,posYClavier = 540,500
-tailleTouche = 50
-continuerChoixTheme = True
-
-#   Fenetre choix du thème
-##  Position sur la fenêtre
-positionTexteChoix =    (380,20)
-positionTexteChiens =   (450,150)
-positionTexteFruits =   (460,250)
-positionTexteInstru =   (410,350)
-positionTextePays =     (470,450)
-
-
-while continuerChoixTheme:
+while contineurJouer:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
-        #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
-        # Tapper la clavier d'ordinateur
-        if event.type == KEYDOWN:
-            carac= event.dict['unicode']
-            if carac == '1' :
-                jeu.creationListeDeMots(th_chien)
-                continuerChoixTheme = False
-            elif carac == '2':
-                jeu.creationListeDeMots(th_fruit)
-                continuerChoixTheme = False
-            elif carac == '3':
-                jeu.creationListeDeMots(th_instrument)
-                continuerChoixTheme = False
-            elif carac == '4':
-                jeu.creationListeDeMots(th_pays)
-                continuerChoixTheme = False
-
-        # Cliquer la clavier sur la fenetre
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             clicX = event.pos[0]
             clicY = event.pos[1]
 
-            if 450 < clicX < 620 and 150 < clicY < 200:
-                jeu.creationListeDeMots(th_chien)
-                continuerChoixTheme = False
-            elif 460 < clicX < 610 and 250 < clicY < 300:
-                jeu.creationListeDeMots(th_fruit)
-                continuerChoixTheme = False
-            elif 410 < clicX < 700 and 350 < clicY < 400:
-                jeu.creationListeDeMots(th_instrument)
-                continuerChoixTheme = False
-            elif 470 < clicX < 600 and 450 < clicY < 500:
-                jeu.creationListeDeMots(th_pays)
-                continuerChoixTheme = False
+            # Cliquer bouton jouer
+            if 650 < clicX < 800 and 480 < clicY < 545:
+                contineurJouer=False
+    #Afficher le bouton jouer
+    fondBouJeu_img = "./fond/bouJeu.jpg"  # bouton jouer
+    fondBouJeu = pygame.image.load(fondBouJeu_img)
 
-            print(clicX)
-
-    # afficher les themes
-    texteChoix  = police.render("Choix du thème", 1, (255,0,255))
-    texteChiens = police.render("1:Chiens", 1, (255,0,0))
-    texteFruits = police.render("2:Fruits", 1, (255,0,0))
-    texteInstru = police.render("3:Instruments", 1, (255,0,0))
-    textePays   = police.render("4:Pays", 1, (255,0,0))
-
-    fenetre.blit(fondTheme,(0,0))
-    fenetre.blit(texteChoix , positionTexteChoix)
-    fenetre.blit(texteChiens, positionTexteChiens)
-    fenetre.blit(texteFruits, positionTexteFruits)
-    fenetre.blit(texteInstru, positionTexteInstru)
-    fenetre.blit(textePays  , positionTextePays)
-
+    # Afficher le fond de fenetre 1
+    fenetre.blit(fondRegle, (0, 0))
+    fenetre.blit(fondBouJeu, positionBouJouer)
     pygame.display.flip()
 
     sleep(0.2)
+rejouer=True
+while rejouer:
+    #   Placement du clavier
+    posXClavier,posYClavier = 540,500
+    tailleTouche = 50
+    continuerChoixTheme = True
 
+    #   Fenetre choix du thème
+    ##  Position sur la fenêtre
+    positionTexteChoix =    (380,20)
+    positionTexteChiens =   (450,150)
+    positionTexteFruits =   (460,250)
+    positionTexteInstru =   (410,350)
+    positionTextePays =     (470,450)
 
-#   Fenetre de fin && programme principal
-##  Position sur la fenêtre
-positionImagePendu =    (0, 50)
-positionThemeChoisi =   (720,120)
-positionLettresTappees =(500,240)
-positionAffichageMot =  (500,360)
+    while continuerChoixTheme:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+            #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
+            # Tapper la clavier d'ordinateur
+            if event.type == KEYDOWN:
+                carac= event.dict['unicode']
+                if carac == '1' :
+                    jeu.creationListeDeMots(th_chien)
+                    continuerChoixTheme = False
+                elif carac == '2':
+                    jeu.creationListeDeMots(th_fruit)
+                    continuerChoixTheme = False
+                elif carac == '3':
+                    jeu.creationListeDeMots(th_instrument)
+                    continuerChoixTheme = False
+                elif carac == '4':
+                    jeu.creationListeDeMots(th_pays)
+                    continuerChoixTheme = False
 
-# Appler le method à Prendre le mot Aléatoire
-jeu.selectionMot()
+            # Cliquer la clavier sur la fenetre
+            if event.type == MOUSEBUTTONDOWN and event.button == 1:
+                clicX = event.pos[0]
+                clicY = event.pos[1]
 
-# Appler le method à affichageComplet
-jeu.affichageComplet()
-lettreATester = list()
+                if 450 < clicX < 620 and 150 < clicY < 200:
+                    jeu.creationListeDeMots(th_chien)
+                    continuerChoixTheme = False
+                elif 460 < clicX < 610 and 250 < clicY < 300:
+                    jeu.creationListeDeMots(th_fruit)
+                    continuerChoixTheme = False
+                elif 410 < clicX < 700 and 350 < clicY < 400:
+                    jeu.creationListeDeMots(th_instrument)
+                    continuerChoixTheme = False
+                elif 470 < clicX < 600 and 450 < clicY < 500:
+                    jeu.creationListeDeMots(th_pays)
+                    continuerChoixTheme = False
 
-#BOUCLE DE JEU
-continuerJeu = True
-while continuerJeu :
-    #Gestion des évenement (fermer et appui touche)
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
+                print(clicX)
 
-        #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
-        if event.type == KEYDOWN:
-            carac= event.dict['unicode']
-            carac = carac.upper() # Convertir la lettre à majuscul
-            jeu.lettreJoueePresente(carac)
+        # afficher les themes
+        texteChoix  = police.render("Choix du thème", 1, (255,0,255))
+        texteChiens = police.render("1:Chiens", 1, (255,0,0))
+        texteFruits = police.render("2:Fruits", 1, (255,0,0))
+        texteInstru = police.render("3:Instruments", 1, (255,0,0))
+        textePays   = police.render("4:Pays", 1, (255,0,0))
 
+        fenetre.blit(fondTheme,(0,0))
+        fenetre.blit(texteChoix , positionTexteChoix)
+        fenetre.blit(texteChiens, positionTexteChiens)
+        fenetre.blit(texteFruits, positionTexteFruits)
+        fenetre.blit(texteInstru, positionTexteInstru)
+        fenetre.blit(textePays  , positionTextePays)
 
-            #   S'éxécute uniquement quand j'appuie sur une touche
-            jeu.affichageComplet()
-
-        # Cliquer la clavier sur la fenetre
-        if event.type == MOUSEBUTTONDOWN and event.button == 1:
-            clicX = event.pos[0]
-            clicY = event.pos[1]
-            clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche)
-
-
-    #Prendre le theme choisi
-    themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
-    #Prendre la lettre tapée
-    lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
-    mot = police.render(jeu.motAAfficher, 1, (66,255,66))
-    # afficher le fond de la fenetre
-    fenetre.blit(fondJeu,(0,0))
-    # afficher le theme
-    fenetre.blit(themeChoisi,positionThemeChoisi)
-    # afficher la lettre tapée
-    fenetre.blit(lettreTap, positionLettresTappees)
-    # afficher le mot
-    fenetre.blit(mot, positionAffichageMot)
-
-
-    #Affichage la Clavier
-    affichageClavier(posXClavier,posYClavier)
-
-    #Affichage ImagePendu
-    lienImagePendu = "./images pendu/{}.png".format(7-jeu.nbDeCoupsRestants)
-    image = pygame.image.load(lienImagePendu)
-
-    fenetre.blit(image, positionImagePendu)
-
-    pygame.display.flip()
-
-    # Afficher image en cas de perdu
-    if jeu.nbDeCoupsRestants == 0:
-        sleep(1)
-        lienImagePendu = "./images pendu/8.png"
-        image = pygame.image.load(lienImagePendu)
-        fenetre.blit(image, positionImagePendu)
         pygame.display.flip()
-        sleep(1)
-        lienImagePendu = "./images pendu/9.png"
-        image = pygame.image.load(lienImagePendu)
-        fenetre.blit(image, positionImagePendu)
-        pygame.display.flip()
-        sleep(1.5)
-    else:
+
         sleep(0.2)
 
-    if jeu.partieGagnee() or jeu.partiePerdue() : continuerJeu = False
+
+    #   Fenetre de fin && programme principal
+    ##  Position sur la fenêtre
+    positionImagePendu =    (0, 50)
+    positionThemeChoisi =   (720,120)
+    positionLettresTappees =(500,240)
+    positionAffichageMot =  (500,360)
+
+    # Appler le method à Prendre le mot Aléatoire
+    jeu.selectionMot()
+
+    # Appler le method à affichageComplet
+    jeu.affichageComplet()
+    lettreATester = list()
+
+    #BOUCLE DE JEU
+    continuerJeu = True
+    while continuerJeu :
+        #Gestion des évenement (fermer et appui touche)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+
+            #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
+            if event.type == KEYDOWN:
+                carac= event.dict['unicode']
+                carac = carac.upper() # Convertir la lettre à majuscul
+                jeu.lettreJoueePresente(carac)
 
 
-#   Fenetre de fin
-##  Position sur la fenêtre
-positionTexteDeFin = (400,500)
-positionPhrase = (400,150)
-positionMot = (400,250)
-positionImageDeFin = (200,200)
+                #   S'éxécute uniquement quand j'appuie sur une touche
+                jeu.affichageComplet()
 
-imageDeFin = "{}/{}".format(jeu.themeChoisi,jeu.imageAAfficherFin)
-imageDeFin = pygame.image.load(imageDeFin)
-
-# Afficher la texte gagne/ perdu
-continuerFin = True
-while continuerFin:
-    if jeu.partieGagnee():
-        fenetre.fill(0x00FF00)
-        texteDeFin = "GAGNE"
-
-    if jeu.partiePerdue():
-        fenetre.fill(0xFF0000)
-        texteDeFin = "PERDU"
-
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            continuerFin = False
+            # Cliquer la clavier sur la fenetre
+            if event.type == MOUSEBUTTONDOWN and event.button == 1:
+                clicX = event.pos[0]
+                clicY = event.pos[1]
+                clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche)
 
 
-    # Afficher le mot
-    phrase = police.render("Le mot était", 1, (255,0,255))
-    mot = police.render(jeu.motATrouver, 1, (255,0,255))
-    texteDeFin = police.render(texteDeFin, 1, (255,255,255))
+        #Prendre le theme choisi
+        themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
+        #Prendre la lettre tapée
+        lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
+        mot = police.render(jeu.motAAfficher, 1, (66,255,66))
+        # afficher le fond de la fenetre
+        fenetre.blit(fondJeu,(0,0))
+        # afficher le theme
+        fenetre.blit(themeChoisi,positionThemeChoisi)
+        # afficher la lettre tapée
+        fenetre.blit(lettreTap, positionLettresTappees)
+        # afficher le mot
+        fenetre.blit(mot, positionAffichageMot)
 
-    fenetre.blit(imageDeFin, positionImageDeFin)
 
-    fenetre.blit(phrase, positionPhrase)
-    fenetre.blit(mot, positionMot)
-    fenetre.blit(texteDeFin, positionImageDeFin)
+        #Affichage la Clavier
+        affichageClavier(posXClavier,posYClavier)
 
-    pygame.display.flip()
-    sleep(0.5)
+        #Affichage ImagePendu
+        lienImagePendu = "./images pendu/{}.png".format(7-jeu.nbDeCoupsRestants)
+        image = pygame.image.load(lienImagePendu)
+
+        fenetre.blit(image, positionImagePendu)
+
+        pygame.display.flip()
+
+        # Afficher image en cas de perdu
+        if jeu.nbDeCoupsRestants == 0:
+            sleep(1)
+            lienImagePendu = "./images pendu/8.png"
+            image = pygame.image.load(lienImagePendu)
+            fenetre.blit(image, positionImagePendu)
+            pygame.display.flip()
+            sleep(1)
+            lienImagePendu = "./images pendu/9.png"
+            image = pygame.image.load(lienImagePendu)
+            fenetre.blit(image, positionImagePendu)
+            pygame.display.flip()
+            sleep(1.5)
+        else:
+            sleep(0.2)
+
+        if jeu.partieGagnee() or jeu.partiePerdue() : continuerJeu = False
+
+
+    #   Fenetre de fin
+    ##  Position sur la fenêtre
+    positionTexteDeFin =  (475,50)
+    positionPhrase = (80,150)
+    positionMot = (80,250)
+    positionlien = (80,350)
+    positionImageDeFin = (590,150)
+    positionBouRejouer=(350,580)
+
+    imageDeFin = "{}/{}".format(jeu.themeChoisi,jeu.imageAAfficherFin)
+    imageDeFin = pygame.image.load(imageDeFin)
+
+    # Afficher la texte gagne/ perdu
+    continuerFin = True
+    while continuerFin:
+        if jeu.partieGagnee():
+            fenetre.fill(0x00FF00)
+            texteDeFin = "GAGNE"
+
+        if jeu.partiePerdue():
+            fenetre.fill(0xFF0000)
+            texteDeFin = "PERDU"
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+            if event.type == MOUSEBUTTONDOWN and event.button == 1:
+                clicX = event.pos[0]
+                clicY = event.pos[1]
+
+                # Cliquer bouton jouer
+                if 350 < clicX < 500 and 580 < clicY < 640:
+                    continuerChoixTheme=True
+                    continuerFin = False
+                    print(clicX,clicY)
+
+        # Afficher le mot
+        phrase = police.render("Le mot était :", 1, (255,0,255))
+        mot = police.render(jeu.motATrouver, 1, (255,0,255))
+        lien= police.render(jeu.lienAAfficherFin , 1, (255,0,255))
+        texteDeFin = police.render(texteDeFin, 1, (255,255,255))
+
+        # commande pour formater l'image en 400x400
+        imageDeFin = pygame.transform.scale(imageDeFin, (400, 400))
+        # Aficher image
+        fenetre.blit(imageDeFin,positionImageDeFin)
+
+        fenetre.blit(phrase, positionPhrase)
+        fenetre.blit(mot, positionMot)
+        fenetre.blit(lien, positionlien)
+        fenetre.blit(texteDeFin, positionTexteDeFin)
+
+        #Afficher le bouton jouer
+        fondBouRejeu_img = "./fond/bouRejeu.jpg"  # bouton re-jouer
+        fondBouRejeu = pygame.image.load(fondBouRejeu_img)
+        fenetre.blit(fondBouRejeu, positionBouRejouer)
+
+        pygame.display.flip()
+        sleep(0.5)
 
 pygame.quit()
 
