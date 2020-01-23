@@ -1,34 +1,34 @@
-ABRICOT;.\\images\\abricot.jpg;https://fr.wikipedia.org/wiki/Abricot
-AIRELLE ROUGE;.\\images\\airelles_rouges.jpg;https://fr.wikipedia.org/wiki/Airelle_rouge
-AMANDE;.\\images\\amande.jpg;https://fr.wikipedia.org/wiki/Amande
-AMELANCHES;.\\images\\amelanche.jpg;https://fr.wikipedia.org/wiki/Am%C3%A9lanchier
-AVOCAT;.\\images\\avocat.jpg;https://fr.wikipedia.org/wiki/Avocat_(fruit) 
-BARBADINE;.\\images\\barbadine.jpg;https://fr.wikipedia.org/wiki/Passiflora_quadrangularis
-BERGAMOTE;.\\images\\bergamote.jpg;https://fr.wikipedia.org/wiki/Bergamote
-BRUGNON;.\\images\\brugnon.jpg;https://fr.wikipedia.org/wiki/Brugnon
-CANNEBERGE;.\\images\\canneberge.jpg;https://fr.wikipedia.org/wiki/Canneberge
-CLEMENTINE;.\\images\\clementine.jpg;https://fr.wikipedia.org/wiki/Cl%C3%A9mentine
-COING;.\\images\\coing.jpg;https://fr.wikipedia.org/wiki/Coing
-CORME;.\\images\\corme.jpg;https://fr.wikipedia.org/wiki/Cormier
-FRAISE DES BOIS;.\\images\\fraise-des-bois.jpg;https://fr.wikipedia.org/wiki/Fraisier_des_bois
-FRAMBOISE;.\\images\\framboise.jpg;https://fr.wikipedia.org/wiki/Framboise
-GOYAVE DU CHILI;.\\images\\goyave_du_chili.jpg;https://fr.wikipedia.org/wiki/Goyavier_du_Chili
-GRENADELLE;.\\images\\grenadelle.jpg;https://fr.wikipedia.org/wiki/Grenadelle
-GRENADILLE;.\\images\\grenadille.jpg;https://fr.wikipedia.org/wiki/Grenadille
-GROSEILLE;.\\images\\groseille.jpg;https://fr.wikipedia.org/wiki/Groseille
-GROSEILLE A MAQUEREAUX;.\\images\\groseilles-a-maqueraux.jpg;https://fr.wikipedia.org/wiki/Groseillier_%C3%A0_maquereau
-KUMQUAT;.\\images\\kumquat.jpg;https://fr.wikipedia.org/wiki/Kumquat
-MYRTE;.\\images\\myrte.jpg;https://fr.wikipedia.org/wiki/Myrtus
-MYRTILLE ARBUSTIVE;.\\images\\myrtille-arbustive.jpg;https://fr.wikipedia.org/wiki/Vaccinium_corymbosum
-NEFLE DU JAPON;.\\images\\nefle-du-japon.jpg;https://fr.wikipedia.org/wiki/N%C3%A8fle_du_Japon
-NEFLE;.\\images\\nefle.jpg;https://fr.wikipedia.org/wiki/N%C3%A8fle
-NOIX DE COCO;.\\images\\noix-de-coco.jpg;https://fr.wikipedia.org/wiki/Noix_de_coco
-NOIX DE MACADAMIA;.\\images\\noix-de-macadamia.jpg;https://fr.wikipedia.org/wiki/Noix_de_macadamia
-ORANGE AMERE;.\\images\\orange-amere.jpg;https://fr.wikipedia.org/wiki/Bigaradier
-PAMPLEMOUSSE;.\\images\\pamplemousse.jpg;https://fr.wikipedia.org/wiki/Pamplemousse_et_pom%C3%A9lo
-PAPAYE;.\\images\\papaye.jpg;https://fr.wikipedia.org/wiki/Papaye
-PECHE;.\\images\\peche.jpg;https://fr.wikipedia.org/wiki/P%C3%AAche_(fruit)
-PHYSALIS;.\\images\\physalis.jpg;https://fr.wikipedia.org/wiki/Physalis
-POIRE;.\\images\\poire.jpg;https://fr.wikipedia.org/wiki/Poire
-POMME;.\\images\\pomme.jpg;https://fr.wikipedia.org/wiki/Pomme
-PRUNE;.\\images\\prune.jpg;https://fr.wikipedia.org/wiki/Prune
+ABRICOT;./images/abricot.jpg;https://fr.wikipedia.org/wiki/Abricot
+AIRELLE ROUGE;./images/airelles_rouges.jpg;https://fr.wikipedia.org/wiki/Airelle_rouge
+AMANDE;./images/amande.jpg;https://fr.wikipedia.org/wiki/Amande
+AMELANCHES;./images/amelanche.jpg;https://fr.wikipedia.org/wiki/Am%C3%A9lanchier
+AVOCAT;./images/avocat.jpg;https://fr.wikipedia.org/wiki/Avocat_(fruit) 
+BARBADINE;./images/barbadine.jpg;https://fr.wikipedia.org/wiki/Passiflora_quadrangularis
+BERGAMOTE;./images/bergamote.jpg;https://fr.wikipedia.org/wiki/Bergamote
+BRUGNON;./images/brugnon.jpg;https://fr.wikipedia.org/wiki/Brugnon
+CANNEBERGE;./images/canneberge.jpg;https://fr.wikipedia.org/wiki/Canneberge
+CLEMENTINE;./images/clementine.jpg;https://fr.wikipedia.org/wiki/Cl%C3%A9mentine
+COING;./images/coing.jpg;https://fr.wikipedia.org/wiki/Coing
+CORME;./images/corme.jpg;https://fr.wikipedia.org/wiki/Cormier
+FRAISE DES BOIS;./images/fraise-des-bois.jpg;https://fr.wikipedia.org/wiki/Fraisier_des_bois
+FRAMBOISE;./images/framboise.jpg;https://fr.wikipedia.org/wiki/Framboise
+GOYAVE DU CHILI;./images/goyave_du_chili.jpg;https://fr.wikipedia.org/wiki/Goyavier_du_Chili
+GRENADELLE;./images/grenadelle.jpg;https://fr.wikipedia.org/wiki/Grenadelle
+GRENADILLE;./images/grenadille.jpg;https://fr.wikipedia.org/wiki/Grenadille
+GROSEILLE;./images/groseille.jpg;https://fr.wikipedia.org/wiki/Groseille
+GROSEILLE A MAQUEREAUX;./images/groseilles-a-maqueraux.jpg;https://fr.wikipedia.org/wiki/Groseillier_%C3%A0_maquereau
+KUMQUAT;./images/kumquat.jpg;https://fr.wikipedia.org/wiki/Kumquat
+MYRTE;./images/myrte.jpg;https://fr.wikipedia.org/wiki/Myrtus
+MYRTILLE ARBUSTIVE;./images/myrtille-arbustive.jpg;https://fr.wikipedia.org/wiki/Vaccinium_corymbosum
+NEFLE DU JAPON;./images/nefle-du-japon.jpg;https://fr.wikipedia.org/wiki/N%C3%A8fle_du_Japon
+NEFLE;./images/nefle.jpg;https://fr.wikipedia.org/wiki/N%C3%A8fle
+NOIX DE COCO;./images/noix-de-coco.jpg;https://fr.wikipedia.org/wiki/Noix_de_coco
+NOIX DE MACADAMIA;./images/noix-de-macadamia.jpg;https://fr.wikipedia.org/wiki/Noix_de_macadamia
+ORANGE AMERE;./images/orange-amere.jpg;https://fr.wikipedia.org/wiki/Bigaradier
+PAMPLEMOUSSE;./images/pamplemousse.jpg;https://fr.wikipedia.org/wiki/Pamplemousse_et_pom%C3%A9lo
+PAPAYE;./images/papaye.jpg;https://fr.wikipedia.org/wiki/Papaye
+PECHE;./images/peche.jpg;https://fr.wikipedia.org/wiki/P%C3%AAche_(fruit)
+PHYSALIS;./images/physalis.jpg;https://fr.wikipedia.org/wiki/Physalis
+POIRE;./images/poire.jpg;https://fr.wikipedia.org/wiki/Poire
+POMME;./images/pomme.jpg;https://fr.wikipedia.org/wiki/Pomme
+PRUNE;./images/prune.jpg;https://fr.wikipedia.org/wiki/Prune
