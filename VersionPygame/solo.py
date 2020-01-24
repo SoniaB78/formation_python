@@ -435,6 +435,7 @@ while rejouer:
         # Aficher image
         fenetre.blit(imageDeFin,positionImageDeFin)
 
+        # Afficher les textes
         fenetre.blit(phrase, positionPhrase)
         fenetre.blit(mot, positionMot)
         fenetre.blit(lien, positionlien)
