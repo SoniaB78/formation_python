@@ -38,12 +38,10 @@ Le fichier " pendu " contient une version console et une version utilisant Pygam
 La version console fonctionne avec un solo.py et 4 dossiers, un par thème, il en va de même pour l'autre version.
 
 ## Documentation
-[Blog: Synbioz](https://www.synbioz.com/blog/tech/git-adopter-un-modele-de-versionnement-efficace)
+[Blog: Synbioz](https://www.synbioz.com/blog/tech/git-adopter-un-modele-de-versionnement-efficace)  
 [Forum: Openclassrooms ](https://openclassrooms.com/forum/sujet/git-pull-sans-commit-49970#message-7109921)
 
-
 >En espérant que ce ReadMe vous ai été utile.
-![Logo sonia devint](https://soniadevint.fr/portfolio/view/inc/img/logo.png)
 
 
 
