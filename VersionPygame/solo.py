@@ -2,6 +2,7 @@ from random import randint
 from time import sleep
 import pygame
 from pygame.locals import *
+import webbrowser
 
 class Pendu():
 
@@ -152,6 +153,7 @@ th_pays="pays"
 
 # Definir la police
 police = pygame.font.SysFont("impact", 50)
+police_lien = pygame.font.SysFont("impact", 30)
 
 # Definir la taille de la fenetre
 fenetre = pygame.display.set_mode((1080,720))
@@ -276,11 +278,11 @@ while rejouer:
                 print(clicX)
 
         # afficher les themes
-        texteChoix  = police.render("Choix du thème", 1, (255,0,255))
-        texteChiens = police.render("1:Chiens", 1, (255,0,0))
-        texteFruits = police.render("2:Fruits", 1, (255,0,0))
-        texteInstru = police.render("3:Instruments", 1, (255,0,0))
-        textePays   = police.render("4:Pays", 1, (255,0,0))
+        texteChoix  = police.render("Choix du thème", 1, (52, 114, 162))
+        texteChiens = police.render("1:Chiens", 1, (60,60,60))
+        texteFruits = police.render("2:Fruits", 1, (60,60,60))
+        texteInstru = police.render("3:Instruments", 1, (60,60,60))
+        textePays   = police.render("4:Pays", 1, (60,60,60))
 
         fenetre.blit(fondTheme,positionFond)
         fenetre.blit(texteChoix , positionTexteChoix)
@@ -335,10 +337,10 @@ while rejouer:
 
 
         #Prendre le theme choisi
-        themeChoisi = police.render(jeu.themeChoisi, 1, (255,255,255))
+        themeChoisi = police.render(jeu.themeChoisi, 1, (52, 114, 162))
         #Prendre la lettre tapée
-        lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
-        mot = police.render(jeu.motAAfficher, 1, (66,255,66))
+        lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255, 207, 60))
+        mot = police.render(jeu.motAAfficher, 1, (60,60,60))
         # afficher le fond de la fenetre
         fenetre.blit(fondJeu,positionFond)
         # afficher le theme
@@ -396,12 +398,12 @@ while rejouer:
     continuerFin = True
     while continuerFin:
         if jeu.partieGagnee():
-            fenetre.fill(0x00FF00)
-            texteDeFin = "GAGNE"
+            fenetre.fill(0xF5F7E9)
+            texteDeFin = "GAGNE !"
 
         if jeu.partiePerdue():
-            fenetre.fill(0xFF0000)
-            texteDeFin = "PERDU"
+            fenetre.fill(0xF5F7E9)
+            texteDeFin = "PERDU !"
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -424,11 +426,16 @@ while rejouer:
                     continuerFin = False
                     print(clicX,clicY)
 
+                # Cliquer le lien
+                if 100 < clicX < 1000 and 520 < clicY < 570:
+                    webbrowser.open(jeu.lienAAfficherFin) # Ouvrir le lien
+                    print(clicX,clicY)
+
         # Afficher le mot
-        phrase = police.render("Le mot était :", 1, (255,0,255))
-        mot = police.render(jeu.motATrouver, 1, (255,0,255))
-        lien= police.render(jeu.lienAAfficherFin , 1, (255,0,255))
-        texteDeFin = police.render(texteDeFin, 1, (255,255,255))
+        phrase = police.render("Le mot était :", 1, (60,60,60))
+        mot = police.render(jeu.motATrouver, 1, (255, 207, 60))
+        lien= police_lien.render(jeu.lienAAfficherFin , 1, (52, 114, 162))
+        texteDeFin = police.render(texteDeFin, 1, (52, 114, 162))
 
         # commande pour formater l'image en 350x350
         imageDeFin = pygame.transform.scale(imageDeFin, (350, 350))
