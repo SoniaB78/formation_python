@@ -24,7 +24,12 @@ tu auras également une trace de tes changements et te permettera de faire machi
 Push sur ta branch quand tu as ajouté une fonctionnalité qui marche, afin qu'on puisse récupérer le travaille fait et voir si c'est compatible.
 Ce n'est que sur la fin du projet ou que quelqu'un à finit de travailler sur le projet qu'il fera un merge / push su l'origin master.
 
+### Pull
+Avant de taper __git pull origin nomDeBanch__, il faut **obligatoirement** que l'autre branch ai push pour pouvoir récupérer les changements. 
+Il est **recommandé** de push sur notre branch avant de pull le contenu d'une autre pour réduire les risques de conflits, mais il est **encore plus fortement conseillé** de faire au moins un commit pour avoi une sauvegarde an cas de conflit. 
+
 ## Organisation du dossier
-Le fichier " pendu " contient la class Pendu et le programme principal écrit en procédural.
+Le fichier " pendu " contient une version console et une version utilisant Pygame. 
+La version console fonctionne avec un solo.py et 4 dossiers, un par thème, il en va de même pour l'autre version.
 
 
