@@ -45,8 +45,7 @@ class Pendu():
         tirageAuSort = randint(0,len(self.listeDeMots)-1)
         self.motATrouver = self.listeDeMots[tirageAuSort]
         self.imageAAfficherFin = self.listeImage[tirageAuSort]
-        lien=self.listeLien[tirageAuSort]
-        self.lienAAfficherFin = lien.strip(" ")
+        self.lienAAfficherFin = self.listeLien[tirageAuSort]
 
         print(self.motATrouver,self.imageAAfficherFin,self.lienAAfficherFin )
 
@@ -154,7 +153,6 @@ th_pays="pays"
 
 # Definir la police
 police = pygame.font.SysFont("impact", 50)
-police_lien = pygame.font.SysFont("impact", 30)
 
 # Definir la taille de la fenetre
 fenetre = pygame.display.set_mode((1080,720))
@@ -204,7 +202,7 @@ while contineurJouer:
             clicY = event.pos[1]
 
             # Cliquer bouton jouer
-            if 680 < clicX < 830 and 530 < clicY < 600:
+            if 650 < clicX < 800 and 480 < clicY < 545:
                 contineurJouer=False
 
     # Afficher le fond de fenetre 1
@@ -415,7 +413,7 @@ while rejouer:
                 clicX = event.pos[0]
                 clicY = event.pos[1]
 
-                #Cliquer bouton QUITTER, quitter le jeu
+                #Cliquer bouton QUITTER
                 if 640 < clicX < 790 and 600 < clicY < 670:
                     pygame.quit()
                     rejouer = False
@@ -423,13 +421,13 @@ while rejouer:
 
                 # Cliquer bouton rejouer
                 if 290 < clicX < 440 and 600 < clicY < 670:
-                    continuerChoixTheme=True # Retouner la fenetre 2
-                    continuerFin = False # terminer la fenetre 4
+                    continuerChoixTheme=True
+                    continuerFin = False
                     print(clicX,clicY)
 
-                # Cliquer le lien
-                if 100 < clicX < 1000 and 520 < clicY < 570:
-                    webbrowser.open(jeu.lienAAfficherFin) # Ouvrir le lien
+                # Cliquer bouton rejouer
+                if 100 < clicX < 640 and 520 < clicY < 570:
+                    webbrowser.open(jeu.lienAAfficherFin)
                     print(clicX,clicY)
 
         # Afficher le mot
@@ -459,3 +457,10 @@ while rejouer:
         sleep(0.5)
 
 pygame.quit()
+
+
+
+
+
+
+
