@@ -157,39 +157,25 @@ police = pygame.font.SysFont("impact", 50)
 fenetre = pygame.display.set_mode((1080,720))
 jeu = Pendu()
 
-#Régler position du fond
-positionFond= (0, 0)
-
 #Gestion des fonds des différentes fenetres
 fondRegle_img="./fond/fondRegles.jpg" # fenetre 1
 fondTheme_img="./fond/fondTheme.jpg" # fenetre 2
 fondJeu_img="./fond/fondJeu.jpg" # fenetre 3
-titre_img="./fond/titre.jpg" # titre
-regle_img="./fond/regle.jpg" # régle
 
 fondRegle=pygame.image.load(fondRegle_img)
 fondTheme = pygame.image.load(fondTheme_img)
 fondJeu = pygame.image.load(fondJeu_img)
-titre=pygame.image.load(titre_img)
-regle=pygame.image.load(regle_img)
 
 #Définir les boutons
+
 fondBouQuitter_img = "./fond/bouQuitter.jpg"  # bouton quiter
 fondBouRejeu_img = "./fond/bouRejeu.jpg"  # bouton re-jouer
-fondBouJeu_img = "./fond/bouJeu.jpg"  # bouton jouer
-
-#Ouvrir les images
 fondBouQuitter = pygame.image.load(fondBouQuitter_img)
 fondBouRejeu = pygame.image.load(fondBouRejeu_img)
-fondBouJeu = pygame.image.load(fondBouJeu_img)
-
 
 #   Fenetre régle
-# definir position
-positionTitre=(600, 50)
-positionRegle=(450,150)
-positionBouJouer =(680,530)
-
+# definir position du bouton jouer
+positionBouJouer =(650,480)
 contineurJouer=True
 
 while contineurJouer:
@@ -203,18 +189,12 @@ while contineurJouer:
             # Cliquer bouton jouer
             if 650 < clicX < 800 and 480 < clicY < 545:
                 contineurJouer=False
+    #Afficher le bouton jouer
+    fondBouJeu_img = "./fond/bouJeu.jpg"  # bouton jouer
+    fondBouJeu = pygame.image.load(fondBouJeu_img)
 
     # Afficher le fond de fenetre 1
-    fenetre.blit(fondRegle,positionFond )
-
-    # Afficher le titre
-    titre = pygame.transform.scale(titre, (300, 100))
-    fenetre.blit(titre, positionTitre)
-
-    # Afficher le regle
-    fenetre.blit(regle, positionRegle )
-
-    #Afficher le bouton jouer
+    fenetre.blit(fondRegle, (0, 0))
     fenetre.blit(fondBouJeu, positionBouJouer)
     pygame.display.flip()
 
@@ -282,7 +262,7 @@ while rejouer:
         texteInstru = police.render("3:Instruments", 1, (255,0,0))
         textePays   = police.render("4:Pays", 1, (255,0,0))
 
-        fenetre.blit(fondTheme,positionFond)
+        fenetre.blit(fondTheme,(0,0))
         fenetre.blit(texteChoix , positionTexteChoix)
         fenetre.blit(texteChiens, positionTexteChiens)
         fenetre.blit(texteFruits, positionTexteFruits)
@@ -340,7 +320,7 @@ while rejouer:
         lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255,255,0))
         mot = police.render(jeu.motAAfficher, 1, (66,255,66))
         # afficher le fond de la fenetre
-        fenetre.blit(fondJeu,positionFond)
+        fenetre.blit(fondJeu,(0,0))
         # afficher le theme
         fenetre.blit(themeChoisi,positionThemeChoisi)
         # afficher la lettre tapée
@@ -382,12 +362,12 @@ while rejouer:
     #   Fenetre de fin
     ##  Position sur la fenêtre
     positionTexteDeFin =  (475,50)
-    positionPhrase = (100,150)
-    positionMot = (100,250)
-    positionlien = (100,520)
+    positionPhrase = (80,150)
+    positionMot = (80,250)
+    positionlien = (80,350)
     positionImageDeFin = (590,150)
-    positionBouRejouer=(290,600)
-    positionBouQuitter=(640,600)
+    positionBouRejouer=(350,580)
+    positionBouQuitter=(830,580)
 
     imageDeFin = "{}/{}".format(jeu.themeChoisi,jeu.imageAAfficherFin)
     imageDeFin = pygame.image.load(imageDeFin)
@@ -412,14 +392,14 @@ while rejouer:
                 clicX = event.pos[0]
                 clicY = event.pos[1]
 
-                #Cliquer bouton QUITTER
-                if 640 < clicX < 790 and 600 < clicY < 670:
+                #Cliquer bouton QUIT
+                if 830 < clicX < 980 and 580 < clicY < 640:
                     pygame.quit()
                     rejouer = False
                     print(clicX,clicY)
 
                 # Cliquer bouton rejouer
-                if 290 < clicX < 440 and 600 < clicY < 670:
+                if 350 < clicX < 500 and 580 < clicY < 640:
                     continuerChoixTheme=True
                     continuerFin = False
                     print(clicX,clicY)
@@ -430,8 +410,8 @@ while rejouer:
         lien= police.render(jeu.lienAAfficherFin , 1, (255,0,255))
         texteDeFin = police.render(texteDeFin, 1, (255,255,255))
 
-        # commande pour formater l'image en 350x350
-        imageDeFin = pygame.transform.scale(imageDeFin, (350, 350))
+        # commande pour formater l'image en 400x400
+        imageDeFin = pygame.transform.scale(imageDeFin, (400, 400))
         # Aficher image
         fenetre.blit(imageDeFin,positionImageDeFin)
 
