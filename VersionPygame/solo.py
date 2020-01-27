@@ -1,45 +1,51 @@
+#------------------------------------IMPORTS------------------------------------
 from random import randint
-from time import sleep
+from time import sleep # pour l'animation
 import pygame
 from pygame.locals import *
-import webbrowser
+import webbrowser # pour les liens
 
+
+#-------------------------------------CLASS-------------------------------------
 class Pendu():
 
     def __init__(self):
 
         self.nbDeCoupsRestants = 7 #le nombre de coups restants
-        self.lettreTappees = []
-        self.lettreTappeesSTR = ""
-        self.motAAfficher = []
+        self.lettreTappees = [] # liste vide pour lettres tappées
+        self.lettreTappeesSTR = "" # lettreTappeesSTR est défini comme étant string
+        self.motAAfficher = [] # liste vide pour le mot à afficher
 
     def creationListeDeMots(self,theme):
-        self.themeChoisi = theme.capitalize()
+        "CECI BLABLABLA"
+        self.themeChoisi = theme.capitalize() # tansformation du theme en majuscule
         "Création de la liste des mots en fonction du theme en attribut"
         self.affichageComplet
         self.listeDeMots = []
         self.listeImage = []
         self.listeLien = []
 
-        self.them_path="./" + theme + "/"
+        self.them_path="./" + theme + "/" # stockage du chemin
         # Obtenir le path de index.csv
-        theme_index="index.csv"
-        fichier=self.them_path+ theme_index
+        theme_index="index.csv" # fichier de stockage
+        fichier=self.them_path+ theme_index #assemblage du chemin complet
 
-        with open(fichier, encoding='utf-8') as f : # Ouvrir le fichier index
+        # Ouvrir le fichier index
+        # open() à deux params => le fichier à lire et l'encodage
+        # as f utilisation d'un alias
+        with open(fichier, encoding='utf-8') as f :
             for ligne in f:
-                ligne_recuperee = f.readline() # Obtenir la contente du fichier
+                ligne_recuperee = f.readline() # Obtenir le contenu du fichier
                 ligne_coupee = ligne_recuperee.split(";") #Coupe la ligne base de ";"
 
-                print(ligne_coupee)
-
                 mot = ligne_coupee[0]# Obtenir le mot
-                imageDeFin = ligne_coupee[1]
-                lienURL  = ligne_coupee[2]
+                imageDeFin = ligne_coupee[1] # l'image est stocké dans la colonne n°2
+                lienURL  = ligne_coupee[2] # le lien est stocké dans la colonne n°3
                 self.listeDeMots.append(mot)# Ajouter le mot coupee à liste
-                self.listeImage.append(imageDeFin)
+                self.listeImage.append(imageDeFin) # .append ajoute à la liste l'élément
                 self.listeLien.append(lienURL)
 
+    # récupération aléatoire avec randint par indice
     def selectionMot(self):
         "Tire un mot au hasard dans la liste listeDeMots"
         tirageAuSort = randint(0,len(self.listeDeMots)-1)
@@ -47,19 +53,21 @@ class Pendu():
         self.imageAAfficherFin = self.listeImage[tirageAuSort]
         self.lienAAfficherFin = self.listeLien[tirageAuSort]
 
+        # print du mot à trouver dans la console pour tricher
         print(self.motATrouver,self.imageAAfficherFin,self.lienAAfficherFin )
 
         return self.motATrouver,self.imageAAfficherFin,self.lienAAfficherFin
 
+    # vérification de la présence de la lettre dans le mot récupéré
     def lettreJoueePresente(self,lettreJouee):
         "Vérifie si la lettre est présente dans le mot"
-        lettreJouee = lettreJouee.upper()
+        lettreJouee = lettreJouee.upper() # mise en majuscule de la lettre pour compatibilité
         if lettreJouee in "AZERTYUIOPQSDFGHJKLMWXCVBN":
             print(lettreJouee)
 
             if not lettreJouee in self.lettreTappees: # Vérifier si lettreJouee est été tappée
                 self.lettreTappees.append(lettreJouee) # Ajouter lettreJouee à la liste dèja tapée
-                self.lettreTappeesSTR += lettreJouee
+                self.lettreTappeesSTR += lettreJouee # transformation de la lettre en string pour l'ajouter au mot
 
                 if lettreJouee in self.motATrouver: # Vérifier si lettreJouee exist dans le mot à trouver
                     return True
@@ -68,6 +76,7 @@ class Pendu():
                     return False
 
 
+    # Témoins pour vérifier si la patie est gagnée ou perdu, utilisé en page 4
     def partiePerdue(self):
         "Vérifie si perdu"
         if self.nbDeCoupsRestants <= 0: #Vérifier si il reste le coup à tapper
@@ -82,16 +91,17 @@ class Pendu():
         else:
             return True
 
+    # Conversion du mot en - - - avec espaces
     def affichageMot(self):
         "Crée le mot a afficher avec des '-' si la lettre n'a pas été tentée"
         self.motAAfficher = []
         for lettreMot in self.motATrouver:
-            if lettreMot in self.lettreTappees:
+            if lettreMot in self.lettreTappees: # affiche la lettre
                 self.motAAfficher.append(lettreMot)
-            elif lettreMot == " " or lettreMot == "-":
+            elif lettreMot == " " or lettreMot == "-": # affiche l'espace
                 self.motAAfficher.append("   ")
             else:
-                self.motAAfficher.append("-")
+                self.motAAfficher.append("-") # affiche le tiret
 
         # Convertir la liste de lettre jouee à chaine de caractères
         motEnStr = ""
@@ -108,41 +118,40 @@ class Pendu():
         print("Lettre jouées :",self.lettreTappees)
         print(self.affichageMot())
 
-
+#-----------------------------------FONCTIONS-----------------------------------
 def affichageClavier(posXClavier,posYClavier):
-    #Affichage clavier sur la fenetre
+    #Affichage clavier sur la fenetre (position ( X, Y)
     listeLettre = "AZERTYUIOPQSDFGHJKLMWXCVBN"
 
-    # Difinir le nombre de lettre à affichager chaque ligne, 10 lettres par ligne
+    # Définit le nombre de lettre à afficher chaque ligne, 10 lettres par ligne
     for i in range(len(listeLettre)):
         lettre = listeLettre[i]
         if not lettre in jeu.lettreTappeesSTR:
             lettre  = police.render(lettre, 1, (66,66,66))
-            if i <10:
+            if i <10: # affiche les 10 premiers characteres sur une ligne
                 fenetre.blit(lettre , (posXClavier +i*50                              , posYClavier+ 0))
-            elif i < 20:
+            elif i < 20: # affiche les 10 suivant characteres sur une deuxième ligne
                 fenetre.blit(lettre , (posXClavier +i%10* tailleTouche                , posYClavier+ tailleTouche))
-            else:
+            else: # affiche les derniers charactères sur une ligne
                 fenetre.blit(lettre , (posXClavier +i%10* tailleTouche+2*tailleTouche , posYClavier+ 2*tailleTouche))
 
 
 def clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche):
-    #attraper un événement de clicher sur la clavier de la fenetre
+    # attraper un événement de clic sur le clavier de la fenetre
     listeLettre = "AZERTYUIOPQSDFGHJKLM--WXCVBN--------------------------------"
 
     if clicX > posXClavier and clicY > posYClavier: # Vérifier si le joueur clique sur la clavier ou pas
-        print(clicX, clicY)
         clicX = (clicX - posXClavier) // tailleTouche
         clicY = (clicY - posYClavier) // tailleTouche
 
-        lettreCliquee = listeLettre[clicX + clicY*10]
+        lettreCliquee = listeLettre[clicX + clicY*10] # assemble les coordonnées X et Y pour définir une aire de clic
 
         if lettreCliquee != "-": # Si lettre cliquée n'est pas "-"
-            jeu.lettreJoueePresente(lettreCliquee)
+            jeu.lettreJoueePresente(lettreCliquee) # utilisé dans la boucle de jeu
             jeu.affichageComplet()
 
 
-##  Programme Principal
+##  ----------------------------PROGRAMME PRINCIPAL-----------------------------
 pygame.init()
 
 # Initial constants
@@ -157,10 +166,12 @@ police_lien = pygame.font.SysFont("impact", 30)
 
 # Definir la taille de la fenetre
 fenetre = pygame.display.set_mode((1080,720))
+
+# Instanciation de la class Pendu
 jeu = Pendu()
 
 #Régler position du fond
-positionFond= (0, 0)
+positionFond= (0, 0) # (x, y)
 
 #Gestion des fonds des différentes fenetres
 fondRegle_img="./fond/fondRegles.jpg" # fenetre 1
@@ -186,7 +197,7 @@ fondBouRejeu = pygame.image.load(fondBouRejeu_img)
 fondBouJeu = pygame.image.load(fondBouJeu_img)
 
 
-#   Fenetre régle
+# -----------------------------Fenêtre règles-----------------------------------
 # definir position
 positionTitre=(600, 50)
 positionRegle=(450,150)
@@ -195,6 +206,7 @@ positionBouJouer =(680,530)
 contineurJouer=True
 
 while contineurJouer:
+    # récupère les évenements
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -213,23 +225,25 @@ while contineurJouer:
     titre = pygame.transform.scale(titre, (300, 100))
     fenetre.blit(titre, positionTitre)
 
-    # Afficher le regle
+    # Afficher les règles
     fenetre.blit(regle, positionRegle )
 
     #Afficher le bouton jouer
     fenetre.blit(fondBouJeu, positionBouJouer)
-    pygame.display.flip()
+    pygame.display.flip() # rafraichit la page
 
     sleep(0.2)
+
 rejouer=True
+
 while rejouer:
-    #   Placement du clavier
+    # Placement du clavier
     posXClavier,posYClavier = 540,500
     tailleTouche = 50
     continuerChoixTheme = True
 
-    #   Fenetre choix du thème
-    ##  Position sur la fenêtre
+    # Fenetre choix du thème
+    ##  Position sur la fenêtre (x, y)
     positionTexteChoix =    (380,20)
     positionTexteChiens =   (450,150)
     positionTexteFruits =   (460,250)
@@ -241,7 +255,7 @@ while rejouer:
             if event.type == QUIT:
                 pygame.quit()
             #Gestion des appuis touche (+ conversion QWERTY => AZERTY)
-            # Tapper la clavier d'ordinateur
+            # Affectation d'un chiffre à un theme 1 2 3 4
             if event.type == KEYDOWN:
                 carac= event.dict['unicode']
                 if carac == '1' :
@@ -291,7 +305,7 @@ while rejouer:
         fenetre.blit(texteInstru, positionTexteInstru)
         fenetre.blit(textePays  , positionTextePays)
 
-        pygame.display.flip()
+        pygame.display.flip() # rafraichit la page
 
         sleep(0.2)
 
@@ -304,7 +318,7 @@ while rejouer:
     positionAffichageMot =  (500,360)
 
     jeu.__init__()
-    # Appler le method à Prendre le mot Aléatoire
+    # Appel de la method selectionMot qui renvoit un mot Aléatoire
     jeu.selectionMot()
 
     # Appler le method à affichageComplet
@@ -325,8 +339,7 @@ while rejouer:
                 carac = carac.upper() # Convertir la lettre à majuscul
                 jeu.lettreJoueePresente(carac)
 
-
-                #   S'éxécute uniquement quand j'appuie sur une touche
+                # S'éxécute uniquement quand j'appuie sur une touche
                 jeu.affichageComplet()
 
             # Cliquer la clavier sur la fenetre
@@ -335,10 +348,9 @@ while rejouer:
                 clicY = event.pos[1]
                 clicToucheClavier(posXClavier,posYClavier,clicX,clicY,tailleTouche)
 
-
-        #Prendre le theme choisi
+        # Style theme choisi
         themeChoisi = police.render(jeu.themeChoisi, 1, (52, 114, 162))
-        #Prendre la lettre tapée
+        # Style lettre tapée
         lettreTap = police.render(str(jeu.lettreTappeesSTR), 1, (255, 207, 60))
         mot = police.render(jeu.motAAfficher, 1, (60,60,60))
         # afficher le fond de la fenetre
@@ -350,7 +362,6 @@ while rejouer:
         # afficher le mot
         fenetre.blit(mot, positionAffichageMot)
 
-
         #Affichage la Clavier
         affichageClavier(posXClavier,posYClavier)
 
@@ -360,7 +371,7 @@ while rejouer:
 
         fenetre.blit(image, positionImagePendu)
 
-        pygame.display.flip()
+        pygame.display.flip() # rafraichit la page
 
         # Afficher image en cas de perdu
         if jeu.nbDeCoupsRestants == 0:
@@ -368,12 +379,12 @@ while rejouer:
             lienImagePendu = "./images pendu/8.png"
             image = pygame.image.load(lienImagePendu)
             fenetre.blit(image, positionImagePendu)
-            pygame.display.flip()
+            pygame.display.flip() # rafraichit la page
             sleep(1)
             lienImagePendu = "./images pendu/9.png"
             image = pygame.image.load(lienImagePendu)
             fenetre.blit(image, positionImagePendu)
-            pygame.display.flip()
+            pygame.display.flip() # rafraichit la page
             sleep(1.5)
         else:
             sleep(0.2)
